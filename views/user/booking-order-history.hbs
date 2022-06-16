@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<link rel="stylesheet" href="/stylesheets/user-pro-billing.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+    integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+<style>
+    body {
+        background-color: #f2f6fc;
+        color: #69707a;
+    }
+
+    .img-account-profile {
+        height: 10rem;
+    }
+
+    .rounded-circle {
+        border-radius: 50% !important;
+    }
+
+    .card {
+        box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+    }
+
+    .card .card-header {
+        font-weight: 500;
+    }
+
+    .card-header:first-child {
+        border-radius: 0.35rem 0.35rem 0 0;
+    }
+
+    .card-header {
+        padding: 1rem 1.35rem;
+        margin-bottom: 0;
+        background-color: rgba(33, 40, 50, 0.03);
+        border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+    }
+
+    .form-control,
+    .dataTable-input {
+        display: block;
+        width: 100%;
+        padding: 0.875rem 1.125rem;
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1;
+        color: #69707a;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #c5ccd6;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 0.35rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .nav-borders .nav-link.active {
+        color: #FC6414;
+        border-bottom-color: #FC6414;
+    }
+
+    .nav-borders .nav-link {
+        color: #69707a;
+        border-bottom-width: 0.125rem;
+        border-bottom-style: solid;
+        border-bottom-color: transparent;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .fa-2x {
+        font-size: 2em;
+    }
+
+    .table-billing-history th,
+    .table-billing-history td {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        padding-left: 1.375rem;
+        padding-right: 1.375rem;
+    }
+
+    .table> :not(caption)>*>*,
+    .dataTable-table> :not(caption)>*>* {
+        padding: 0.75rem 0.75rem;
+        background-color: var(--bs-table-bg);
+        border-bottom-width: 1px;
+        box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+    }
+
+    .border-start-primary {
+        border-left-color: #0061f2 !important;
+    }
+
+    .border-start-secondary {
+        border-left-color: #6900c7 !important;
+    }
+
+    .border-start-success {
+        border-left-color: #00ac69 !important;
+    }
+
+    .border-start-lg {
+        border-left-width: 0.25rem !important;
+    }
+
+    .h-100 {
+        height: 100% !important;
+    }
+
+/*modal stylesheet start*/
+        .modal-box {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .show-modal {
+            color: #fff;
+            background: linear-gradient(to right, #33a3ff, #0675cf, #49a6fd);
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: capitalize;
+            padding: 10px 15px;
+            margin: 200px auto 0;
+            border: none;
+            outline: none;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            display: block;
+            transition: all 0.3s ease 0s;
+        }
+
+        .show-modal:hover,
+        .show-modal:focus {
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            outline: none;
+        }
+
+        .modal-dialog {
+            width: 400px;
+            margin: 70px auto 0;
+        }
+
+        .modal-dialog {
+            transform: scale(0.5);
+        }
+
+        .modal-dialog {
+            transform: scale(1);
+        }
+
+        .modal-dialog .modal-content {
+            text-align: center;
+            border: none;
+        }
+
+        .modal-content .close {
+            /*color: #fff;
+    /* background: linear-gradient(to right, #33a3ff, #0675cf, #4cd5ff); */
+            /*background-color: #FC6414;*/
+            background-color: white;
+            color: #FC6414;
+            font-size: 25px;
+            font-weight: 400;
+            text-shadow: none;
+            line-height: 27px;
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            overflow: hidden;
+            opacity: 1;
+            position: absolute;
+            left: auto;
+            right: 7px;
+            top: 8px;
+            z-index: 1;
+            transition: all 0.3s;
+            outline: none;
+            border: none;
+        }
+
+        .modal-content .close:hover {
+            background-color: #FC6414;
+            color: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .close:focus {
+            outline: none;
+        }
+
+        .modal-body {
+            padding: 60px 40px 40px !important;
+        }
+
+        .modal-body .title {
+            color: #FC6414;
+            font-size: 33px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 0 0 10px;
+        }
+
+        .modal-body .description {
+            color: #9A9EA9;
+            font-size: 16px;
+            margin: 0 0 20px;
+        }
+
+        .modal-body .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .modal-body .input-icon {
+            color: #777;
+            font-size: 18px;
+            transform: translateY(-50%);
+            position: absolute;
+            top: 50%;
+            left: 20px;
+        }
+
+        .modal-body .form-control {
+            font-size: 17px;
+            height: 45px;
+            width: 100%;
+            padding: 6px 0 6px 50px;
+            margin: 0 auto;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            box-shadow: none;
+            outline: none;
+        }
+
+        .form-control::placeholder {
+            color: #AEAFB1;
+        }
+
+        .id-control {
+            font-size: 17px;
+            height: 45px;
+            width: 100%;
+            padding: 6px 0 6px 50px;
+            margin: 0 auto;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            box-shadow: none;
+            outline: none;
+        }
+
+        .form-group.checkbox {
+            width: 130px;
+            margin-top: 0;
+            display: inline-block;
+        }
+
+        .form-group.checkbox label {
+            color: #9A9EA9;
+            font-weight: normal;
+        }
+
+        .form-group.checkbox input[type=checkbox] {
+            margin-left: 0;
+        }
+
+        .modal-body .forgot-pass {
+            color: #7F7FD5;
+            font-size: 13px;
+            text-align: right;
+            width: calc(100% - 135px);
+            margin: 2px 0;
+            display: inline-block;
+            vertical-align: top;
+            transition: all 0.3s ease 0s;
+        }
+
+        .forgot-pass:hover {
+            color: #9A9EA9;
+            text-decoration: underline;
+        }
+
+        .modal-content .modal-body .btn {
+            color: #fff;
+            /* background: linear-gradient(to right, #33a3ff, #0675cf, #4cd5ff); */
+            /* background-color: #FC6414;*/
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            line-height: 38px;
+            width: 100%;
+            height: 40px;
+            padding: 0;
+            border: none;
+            border-radius: 5px;
+            border: none;
+            display: inline-block;
+            transition: all 0.6s ease 0s;
+        }
+
+        .modal-content .modal-body .btn:hover {
+            color: #fff;
+            letter-spacing: 2px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content .modal-body .btn:focus {
+            outline: none;
+        }
+
+        @media only screen and (max-width: 480px) {
+            .modal-dialog {
+                width: 95% !important;
+            }
+
+            .modal-content .modal-body {
+                padding: 60px 20px 40px !important;
+            }
+        }
+
+        .form-group input::placeholder {
+            opacity: 1;
+        }
+
+        .deletebtn {
+            background-color: red;
+            color: white;
+        }
+
+        .cancelbtn {
+            background-color: white;
+            color: #FC6414 !important;
+        }
+
+
+        /*modal stylesheet end*/
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            color: inherit;
+        }
+
+</style>
+
+
+<body>
+
+
+
+    <section>
+
+
+        <div class="container-xl px-4 mt-4">
+            <!-- Account page navigation-->
+            <nav class="nav nav-borders">
+
+                <a class="nav-link " href="/user/order-history">Billing</a>
+                <a class="nav-link active" href="/user/booking-order-history">Bookings</a>
+
+
+            </nav>
+            <hr class="mt-0 mb-4">
+
+
+
+
+        </div>
+
+        {{#if userBookedData}}
+        <!-- Table Start -->
+        <div class="container-fluid  px-4">
+            <div class="row g-4 ">
+
+                <div class="col-12">
+
+                    <div class="bg-light rounded h-100 ">
+
+                        {{!-- <h6 class="mb-4">All Cars</h6> --}}
+
+                        <div id="wrapper" class="pt-5">
+
+                            <!-- Content Wrapper -->
+                            <div id="content-wrapper" class="d-flex flex-column pt-3">
+                                <div class="container-fluid">
+                                    <!-- DataTales Example -->
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold " style="color: #FC6414;">All Booking
+                                                History</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="dataTable" width="100%"
+                                                    cellspacing="0">
+
+                                                    <thead>
+
+                                                        <tr>
+                                                            <th>Model Name</th>
+                                                            <th>Booked Date</th>
+                                                            <th>Total Fare</th>
+                                                            <th>Km Plan</th>
+
+                                                            <th>Extra Fare/Kms</th>
+                                                            <th>Pickup Date</th>
+                                                            <th>Dropoff Date</th>
+                                                            <th>Pickup Location</th>
+                                                            <th>Dropoff Location</th>
+                                                            <th>Deposit</th>
+                                                            <th>Status</th>
+                                                            <th>Option</th>
+
+                                                            {{!-- <th>Deposit</th>
+                                                            <th>Options</th> --}}
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {{#each userBookedData}}
+                                                        <tr>
+                                                            <td>{{this.modelname}}</td>
+                                                            <td>{{this.date}}</td>
+                                                            <td>{{this.totalfare}}</td>
+                                                            <td>{{this.kmplan.kms}}</td>
+
+
+                                                            <td>{{this.extrafare}}</td>
+                                                            <td>{{this.pickupDateTime}}</td>
+                                                            <td>{{this.dropoffDateTime}}</td>
+                                                            <td>{{this.bookedlocation.pickuplocation}}</td>
+                                                            <td>{{this.bookedlocation.dropofflocation}}</td>
+                                                            <td>{{this.deposit}}</td>
+                                                            <td class="">{{this.Status}}</td>
+
+
+                                                            <td><a href=""
+                                                                    class="btn btn-danger text-white"  data-bs-toggle="modal" data-bs-target="#myModal">Cancel</i></td>
+
+                                                            
+                                                        </tr>
+                                                        {{/each}}
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Table End -->
+       {{else}} 
+       <div class="container"><h6 class="m-auto" style="color: #FC6414;">No Bookings!!</h6></div>
+        
+       {{/if}}
+
+
+
+
+
+
+
+    {{!-- modal start --}}
+{{#each userBookedData}}
+
+    <div class="modal-box">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                <div class="modal-content clearfix " id="">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                    <div class="modal-body">
+                        <form action="" method="post" id="id-form">
+
+                            <div class="form-group">
+                                <p>Do you want to cancel this booking ?</p>
+                            </div>
+                            <button class="btn deletebtn " type="button"><a href="/user/cancel-booking?id={{this._id}}&c={{this.carId}}">
+                                    yes</a></button>
+
+                            <button class="btn mt-3 cancelbtn" type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">No</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/each}}
+    {{!-- modal end --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </section>
+
+
+
+
+
+
+
+{{!--========== Bootstrap js ===========--}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+
+    <script>
+
+        function viewImage(event) {
+            document.getElementById('img_views').src = URL.createObjectURL(event.target.files[0])
+        }
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>

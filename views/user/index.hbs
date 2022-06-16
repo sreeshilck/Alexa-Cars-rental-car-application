@@ -1,0 +1,116 @@
+<title>Alexa Cars</title>
+<link rel="stylesheet" href="/stylesheets/index.css">
+
+
+
+
+
+
+<body>
+
+    {{!--=================== Hero Section Start =======================--}}
+
+    <section class="hero">
+        <div class="hero-container ">
+            <div class="container ">
+                <div class="row ">
+                    <div class="col-12 col-md-6  m-auto pt-5">
+                        <div class="finder  d-flex align-items-center justify-content-center ">
+                            <form action="/user/rentacar-now" class="" method="post">
+                                <h3 class="text-dark " style="display: inline;">Make Your Trip</h3>
+                                <div class="form-group">
+                                    <label for="" class="label text-dark">Pick-up location</label>
+                                    <input type="text" class="form-control" name="pickup-location" id="pickup-location">
+                                    <img src="/images/icons8-location.gif" alt="" style="width:24px;height:24px;"
+                                        class="location-icon">
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="label text-dark">Drop-off location</label>
+                                    <input type="text" class="form-control" name="dropoff-location">
+                                    <img src="/images/icons8-location.gif" alt="" style="width:24px;height:24px;"
+                                        class="location-icon">
+                                </div>
+
+
+
+
+                                <div class="d-flex">
+                                    <div class="form-group me-1">
+                                        <label for="" class="label text-dark">Pick-up date</label>
+                                        <input type="text" class="basicDate form-control dateTim " name="pickup-date"
+                                            placeholder="" id="">
+                                        <img src="/images/icons8-calendar.gif" alt="" style="width:24px;height:24px;"
+                                            class="date-icon">
+                                    </div>
+                                    <div class="form-group ms-1">
+                                        <label for="" class="label text-dark">Drop-off date</label>
+                                        <input type="text" class="basicDate form-control dateTime " id=""
+                                            name="dropoff-date" placeholder="">
+                                        <img src="/images/icons8-calendar.gif" alt="" style="width:24px;height:24px;"
+                                            class="date-icon">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="form-control searchbtn">Rent A Car Now</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-12 col-md-6 m-auto ">
+                        <div class="info container-fluid ">
+                            <h1 class="mb-4 text-white fw-bold">Fast &amp; Easy<br> Way To Rent A Car</h1>
+                            <h4 style="font-size: 18px; color: white;">You can rent self-drive cars on a daily, weekly,
+                                fortnightly and monthly basis. The pricing of each is dynamic, depending on the model of
+                                the car, duration of the rental period, price
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{!--========================= Hero Section End ==========================--}}
+
+
+
+
+    <div class="test" style="width: 100%; height: 500px; background-color: blue;"></div>
+{{!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
+  <!--  Flatpickr  -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+    <script>
+
+
+
+        $(".basicDate").flatpickr({
+            enableTime: true,
+            dateFormat: "F, d Y H:i",
+            minDate: "today",
+            maxDate: new Date().fp_incr(30),
+            disableMobile: "true"
+        });
+
+    </script>
+
+
+
+   <!-- jQuery -->
+    {{!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
+    
+
+
+
+
+
+
+
+
+
+
+
+</body>

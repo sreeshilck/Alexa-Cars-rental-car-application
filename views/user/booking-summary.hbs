@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    {{!-- stylesheet start --}}
+    <style>
+        *:focus {
+            outline: none !important;
+        }
+
+        .cardiv {
+
+            height: fit-content;
+            backgroun-color: aqua;
+        }
+
+        .outer-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .farebox p {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        #couponbox {
+            width: 70%;
+            padding-left: 10px;
+            box-sizing: border-box;
+            border: none;
+            outline: none;
+            border-bottom: 2px solid #FC6414;
+        }
+
+        #couponbox::placeholder {
+            color: #FC6414;
+        }
+
+        .couponbtn {
+            width: 80px;
+            height: 40px;
+            background-color: #FC6414;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            font-weight: 600;
+            margin-left: 25px;
+        }
+
+        #pickup-location,
+        #dropoff-location {
+            border-radius: 10px;
+
+        }
+
+        #pickup-location:focus,
+        #dropoff-location:focus {
+            outline: #FC6414 !important;
+            outline-width: 0 !important;
+            box-shadow: none;
+
+        }
+
+
+        @media (max-width: 767px) {
+            .farebox {
+                margin-top: 50px;
+            }
+
+            .booking {
+                margin-top: 20px;
+            }
+        }
+
+
+        /*modal stylesheet start*/
+        .modal-box {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .show-modal {
+            color: #fff;
+            background: linear-gradient(to right, #33a3ff, #0675cf, #49a6fd);
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: capitalize;
+            padding: 10px 15px;
+            margin: 200px auto 0;
+            border: none;
+            outline: none;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            display: block;
+            transition: all 0.3s ease 0s;
+        }
+
+        .show-modal:hover,
+        .show-modal:focus {
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            outline: none;
+        }
+
+        .modal-dialog {
+            width: 400px;
+            margin: 70px auto 0;
+        }
+
+        .modal-dialog {
+            transform: scale(0.5);
+        }
+
+        .modal-dialog {
+            transform: scale(1);
+        }
+
+        .modal-dialog .modal-content {
+            text-align: center;
+            border: none;
+        }
+
+        .modal-content .close {
+            /*color: #fff;
+    /* background: linear-gradient(to right, #33a3ff, #0675cf, #4cd5ff); */
+            /*background-color: #FC6414;*/
+            background-color: white;
+            color: #FC6414;
+            font-size: 25px;
+            font-weight: 400;
+            text-shadow: none;
+            line-height: 27px;
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            overflow: hidden;
+            opacity: 1;
+            position: absolute;
+            left: auto;
+            right: 7px;
+            top: 8px;
+            z-index: 1;
+            transition: all 0.3s;
+            outline: none;
+            border: none;
+        }
+
+        .modal-content .close:hover {
+            background-color: #FC6414;
+            color: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .close:focus {
+            outline: none;
+        }
+
+        .modal-body {
+            padding: 60px 40px 40px !important;
+        }
+
+        .modal-body .title {
+            color: #FC6414;
+            font-size: 33px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 0 0 10px;
+        }
+
+        .modal-body .description {
+            color: #9A9EA9;
+            font-size: 16px;
+            margin: 0 0 20px;
+        }
+
+        .modal-body .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .modal-body .input-icon {
+            color: #777;
+            font-size: 18px;
+            transform: translateY(-50%);
+            position: absolute;
+            top: 50%;
+            left: 20px;
+        }
+
+        .modal-body .form-control {
+            font-size: 17px;
+            height: 45px;
+            width: 100%;
+            padding: 6px 0 6px 50px;
+            margin: 0 auto;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            box-shadow: none;
+            outline: none;
+        }
+
+        .form-control::placeholder {
+            color: #AEAFB1;
+        }
+
+        .id-control {
+            font-size: 17px;
+            height: 45px;
+            width: 100%;
+            padding: 6px 0 6px 50px;
+            margin: 0 auto;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            box-shadow: none;
+            outline: none;
+        }
+
+        .form-group.checkbox {
+            width: 130px;
+            margin-top: 0;
+            display: inline-block;
+        }
+
+        .form-group.checkbox label {
+            color: #9A9EA9;
+            font-weight: normal;
+        }
+
+        .form-group.checkbox input[type=checkbox] {
+            margin-left: 0;
+        }
+
+        .modal-body .forgot-pass {
+            color: #7F7FD5;
+            font-size: 13px;
+            text-align: right;
+            width: calc(100% - 135px);
+            margin: 2px 0;
+            display: inline-block;
+            vertical-align: top;
+            transition: all 0.3s ease 0s;
+        }
+
+        .forgot-pass:hover {
+            color: #9A9EA9;
+            text-decoration: underline;
+        }
+
+        .modal-content .modal-body .btn {
+            color: #fff;
+            /* background: linear-gradient(to right, #33a3ff, #0675cf, #4cd5ff); */
+            background-color: #FC6414;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            line-height: 38px;
+            width: 100%;
+            height: 40px;
+            padding: 0;
+            border: none;
+            border-radius: 5px;
+            border: none;
+            display: inline-block;
+            transition: all 0.6s ease 0s;
+        }
+
+        .modal-content .modal-body .btn:hover {
+            color: #fff;
+            letter-spacing: 2px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content .modal-body .btn:focus {
+            outline: none;
+        }
+
+        @media only screen and (max-width: 480px) {
+            .modal-dialog {
+                width: 95% !important;
+            }
+
+            .modal-content .modal-body {
+                padding: 60px 20px 40px !important;
+            }
+        }
+
+        .form-group input::placeholder {
+            opacity: 1;
+        }
+
+
+        /*modal stylesheet end*/
+
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            color: inherit;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+
+    {{!-- stylesheet end --}}
+
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="row outer-row mt-5 pt-5 ">
+            <div class="cardiv col-md-7   ">
+                <div class="carcontainer p-5"
+                    style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 15px;">
+                    <div class="row " style="border-radius: 15px">
+                        <div class="col-md-6 " style="border-radius: 15px;">
+                            <h5 style="color: #FC6414;">{{selectedCarData.modelname}}</h5>
+                            <img src="/images/Cars/{{selectedCarData.image}}" style="width:80%;height: 70%;" alt="">
+                            <div class="div p-1 "
+                                style="width: 100%; display: flex; align-items: center; justify-content: space-evenly;">
+                                <img src="/images/icons8-transmission- color (3).png" style="width: 28px;height: 28px;"
+                                    alt="">
+                                <p style="margin-top: 10px; color: #FC6414;">{{selectedCarData.transmission}}</p>
+                                <img src="/images/icons8-fuel- color (2).png" style="width: 28px;height: 28px;" alt="">
+                                <p style="margin-top: 10px; color: #FC6414;">{{selectedCarData.fueltype}}</p>
+                                <img src="/images/icons8-car-seat- color (1).png" style="width: 28px;height: 28px;"
+                                    alt="">
+                                <p style="margin-top: 10px; color: #FC6414;"> {{selectedCarData.seats}} Seats</p>
+                            </div>
+                        </div>
+                        <div class="booking col-md-6 text-center" style="border-radius: 15px;">
+                            <h6> BOOKING DETAILS </h6>
+                            <h3 class="mt-5" id="startdate">{{startdate}}</h3>
+                            {{!-- <input type="datetime-local" value="{{selecteddateData.startdate}}"
+                                style="border: none;outline: none;display: block;"> --}}
+                            <button class="rounded-circle  my-3"
+                                style="border: none;outline:none;background-color: #FC6414;color: white;">To</button>
+                            <h3>{{enddate}}</h3>
+                            <i class="bi bi-stopwatch-fill"><span> {{days}} Day(s)</span></i>
+                            <p class="mt-3">Pricing Plan Includes : {{selectedCarKms}} Kms</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                {{!-- disclaimer start --}}
+                <div class="mt-5 p-5  text-center"
+                    style="width: 100%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 15px;">
+                    <h6>IMPORTANT POINTS TO REMEMBER</h6>
+                    <div class="idinfo d-flex mt-5">
+                        <p class="text-start fw-bold">ID VERIFICATION: </p>
+                        <P class="text-start ms-5">Please keep your Original License handy.While delivering the car to
+                            you , our executive will verify your original Driving License and ID proof (same as the ones
+                            whose details were provided while making the booking). This verification is mandatory . In
+                            the unfortunate cade where you cannot show these documents ,we will not be able to handover
+                            the car to you, and it will be treated a s a late cancellation (100% of the fare would be
+                            payable). Driving License printed on A4 sheet of paper original or otherwise) will not be
+                            considered as a valid document.</P>
+                    </div>
+                    <div class="idinfo d-flex mt-5">
+                        <p class="text-start fw-bold">FUEL: </p>
+                        <P class="text-start " style="margin-left: 110px;">In case you are returning the car at a lower
+                            fuel level than what was received , we will charge a flat Rs 500 refuelling service charge +
+                            actual fuel cost to get the tank to the same level as what was recieved.</P>
+                    </div>
+                    <div class="idinfo d-flex mt-5">
+                        <p class="text-start fw-bold">PRE - HANDOVER INSPECTION : </p>
+                        <P class="text-start ms-1">Please inspect the car (including the fuel gauge and odometer )
+                            thoroughly before approving the checklist .</P>
+                    </div>
+                </div>
+
+
+                {{!-- disclaimer end --}}
+
+            </div>
+
+
+
+
+            <div class="farebox col-md-4  p-5 "
+                style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 15px;height: fit-content;">
+                <h6 class="text-center">FARE DETAILS</h6>
+
+                <div class="div d-flex mt-5">
+                    <p>Base Fare</p>
+                    <p class="ms-auto fs-5">&#x20b9; {{selectedCarFare}}</p>
+                </div>
+                <div class="div d-flex mt-3">
+                    <p class="">Doorstep Delivery and Pickup</p>
+                    <p class="ms-auto">Free</p>
+                </div>
+                <div class="div d-flex mt-3">
+                    <p>Insurance &#38; GST</p>
+                    <p class="ms-auto">Included</p>
+                </div>
+                <div class="div d-flex mt-3">
+                    <p>Refundable Secuirity Deposit</p>
+                    <p class="ms-auto">&#x20b9; {{selectedCarData.deposit}}</p>
+                </div>
+
+
+                {{!-- Coupon start --}}
+
+                <div class="div d-flex mt-3 ">
+                    <form action="" method="post" id="coupon-form" class="d-flex">
+                        <input type="text" name="couponcode" id="couponbox" placeholder="Enter Coupon Code">
+                        <input type="text" name="carId" id="" placeholder="" value="{{selectedCarData._id}}" hidden>
+
+                        <button class="couponbtn ms-5" style="margin-left: 90px; " type="submit">Apply</button>
+
+                    </form>
+                </div>
+                <p class="mt-3 text-danger" id="couponErr"></p>
+                {{!-- Coupon end --}}
+                <div class="div d-flex  mt-5 " style="border-top: 1px solid #FC6414;">
+                    <p class="my-auto">Total</p>
+                    <p class="ms-auto mt-3 fs-5" style="color: #FC6414;">&#x20b9; {{totalfare}}</p>
+                </div>
+
+                <div class="div d-flex" style="" id="">
+                    <p id="discount"></p>
+
+                    <h5 class="ms-auto" id="discountValue"></h5>
+                </div>
+                <div class="div d-flex" style="border-bottom: 1px solid #FC6414;">
+                    <p id="finalfare" class="bg-primary"></p>
+                    <h3 id="finalfareValue" class="ms-auto mt-2 " style="color: #FC6414 !important;"></h3>
+                </div>
+
+
+                <div class="div d-flex mt-5">
+                    <p>Kms limit</p>
+                    <p class="ms-auto">{{selectedCarKms}} Kms</p>
+                </div>
+                <div class="div d-flex mt-3">
+                    <p>Extra Kms charge</p>
+                    <p class="ms-auto">&#x20b9; {{selectedCarData.extrafare}}/Km</p>
+                </div>
+                <div class="div d-flex mt-3">
+                    <p>Tolls,Parking &#38; State tax </p>
+                    <p class="ms-auto">To be paid by you</p>
+                </div>
+
+                <form action="" method="post" id="location-form">
+                    <div class="location-box mt-3">
+
+                        <input type="text" class="form-control" name="pickuplocation" id="pickup-location"
+                            placeholder="Pick-up location" style="outline: none !important;outline-width: 0;">
+                        {{!-- <img src="/images/icons8-location.gif" alt="" style="width:24px;height:24px;"
+                            class="location-icon"> --}}
+                    </div>
+                    <div class="location-box mt-3">
+
+                        <input type="text" class="form-control" name="dropofflocation" id="dropoff-location"
+                            placeholder="Drop off location">
+                    </div>
+
+                        <p style="color: red;" class="mt-3" id="placeErr"></p>
+                    <div class="div mt-4 d-flex flex-column  text center  align-items-center">
+                        <button
+                            style="background-color: #FC6414;color: white; padding: 7px; border: none; outline: none; width: 170px;height: 37px;border-radius: 15px;font-weight: 600;"
+                            data-bs-toggle="modal" data-bs-target="#myModa" type="submit">PAY</button>
+                    </div>
+
+                </form>
+            </div>
+
+
+
+            {{!-- modal start --}}
+
+
+            <div class="modal-box">
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content clearfix " id="">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">×</span></button>
+                            <div class="modal-body">
+                                {{#if bookedUser}}
+                                <form action="" method="post" id="id-form">
+                                    <h3 class="title">Eligibility & ID </h3>
+                                    <p class="description">To make a booking:</p>
+                                    <p class="description1">You must be at least 21 years old </p>
+                                    <p class="description2">Your Driving License for “Light Motor Vehicles ” must be at
+                                        least 1 year old </p>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control basicDate" placeholder="Enter Date of Birth"
+                                            name="dob" value="{{dob}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <!-- <input type="" class="form-control" placeholder="Select ID Proof"> -->
+                                        <select name="idcard" id="" class="id-control">
+                                            <option value="{{bookedUser.idcard}}"  selected>{{bookedUser.idcard}}
+                                            </option>
+                                            <option value="Aadhar Card" >Aadhar Card</option>
+                                            <option value="Passport">Passport</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <input type="number" class="form-control" placeholder="Enter ID Card No"
+                                            name="idnumber" value="{{bookedUser.idCardNo}}">
+                                    </div>
+                                    <div class="form-group">
+
+                                        <input type="text" class="form-control" placeholder="Enter Driving License NO"
+                                            name="licensenumber" value="{{bookedUser.drivingLicenceNo}}">
+                                    </div>
+
+                                    <input type="text" name="User_id" value="{{User_id}}" hidden>
+                                    <input type="text" name="Car_id" value="{{selectedCarData._id}}" hidden>
+
+                                    <button class="btn" type="submit">Procced</button>
+                                </form>
+                                {{else}}
+                                <form action="" method="post" id="id-form">
+                                    <h3 class="title">Eligibility & ID </h3>
+                                    <p class="description">To make a booking:</p>
+                                    <p class="description1">You must be at least 21 years old </p>
+                                    <p class="description2">Your Driving License for “Light Motor Vehicles ” must be at
+                                        least 1 year old </p>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control basicDate" placeholder="Enter Date of Birth"
+                                            name="dob" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <!-- <input type="" class="form-control" placeholder="Select ID Proof"> -->
+                                        <select name="idcard" id="" class="id-control">
+                                            <option value="" disabled selected>Select ID Card
+                                            </option>
+                                            <option value="Aadhar Card" >Aadhar Card</option>
+                                            <option value="Passport">Passport</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <input type="number" class="form-control" placeholder="Enter ID Card No"
+                                            name="idnumber" value="">
+                                    </div>
+                                    <div class="form-group">
+
+                                        <input type="text" class="form-control" placeholder="Enter Driving License NO"
+                                            name="licensenumber" value="">
+                                    </div>
+
+                                    <input type="text" name="User_id" value="{{User_id}}" hidden>
+                                    <input type="text" name="Car_id" value="" hidden>
+
+                                    <button class="btn" type="submit">Procced</button>
+                                </form>
+
+
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{!-- modal end --}}
+
+
+
+
+        </div>
+
+    </div>
+
+
+    <div class="footer mt-5" style="width: 100%;height: 500px;background-color: aqua;"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="/lib/moment.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+    <script>
+
+
+
+        $(".basicDate").flatpickr({
+            enableTime: true,
+            dateFormat: "F, d Y ",
+            minDate: "today",
+            maxDate: new Date().fp_incr(30),
+            disableMobile: "true"
+        });
+
+    </script>
+
+
+
+
+
+    <script>
+
+
+
+
+        // id form jquerry validation
+
+        $(document).ready(function () {
+            $("#id-form").validate({
+                errorClass: "Errors",
+                rules: {
+                    dob: {
+                        required: true,
+
+                    },
+                    idcard: {
+                        required: true,
+
+                    },
+                    idnumber: {
+                        required: true,
+                        minlength: 12,
+                        maxlength: 12,
+
+                    },
+
+                    licensenumber: {
+                        required: true,
+                        //minlength: 6,
+                        //strongePassword:true
+
+                    },
+
+                },
+                messages: {
+                    dob: {
+                        required: "Please enter your name",
+
+                    },
+
+                    idcard: {
+                        required: "Please enter your id",
+
+                    },
+
+                    idnumber: {
+                        required: "Please enter your id card number",
+
+                    }
+                }
+            })
+
+
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //===============coupon verify start  ====================
+
+        $("#coupon-form").submit((e) => {
+            e.preventDefault()
+            $.ajax({
+                url: '/user/coupon-verify',
+                method: 'post',
+                data: $('#coupon-form').serialize(),
+                success: (response) => {
+                    document.getElementById('couponErr').innerHTML = "";
+                    if (response) {
+
+                        let getDiscountValue = '';
+                        let getDiscountAmount = '';
+
+                        getDiscountAmount = `<h5>${response.discount}</h5>`;
+                        getDiscountValue = `<h3>${response.finalFare}</h3>`;
+
+                        document.getElementById('discount').innerHTML = "Coupon Discount";
+                        document.getElementById('discountValue').innerHTML = getDiscountAmount;
+                        document.getElementById('finalfare').innerHTML = "Grand total";
+                        document.getElementById('finalfareValue').innerHTML = getDiscountValue;
+                    } else {
+                        document.getElementById('couponErr').innerHTML = "Entered Coupon Is Invalid";
+                        // alert("failed response")
+
+                    }
+
+                }
+            })
+
+        })
+        //===============coupon verify end  ====================
+
+
+
+
+        $("#location-form").submit((e) => {
+            e.preventDefault()
+            $.ajax({
+                url: '/user/location',
+                method: 'post',
+                data: $('#location-form').serialize(),
+                success: (response) => {
+
+
+
+
+                    if (response == true) {
+                        $("#myModal").modal('show');
+
+                    } else {
+
+                        $("#myModal").modal('hide');
+                        document.getElementById('placeErr').innerHTML = "Enter Pickup and dropoff location";
+                    }
+
+                }
+            })
+
+        })
+
+
+
+
+
+        /*Razor pay payment start*/
+
+        $("#id-form").submit((e) => {
+            e.preventDefault()
+            $.ajax({
+                async: false,
+                url: '/user/bookcar',
+                method: 'post',
+                data: $('#id-form').serialize(),
+                success: (response) => {
+
+                    if (response) {
+                        // alert("Sucessfully Completed")
+
+                        razorpayPay(response)
+                        $("#myModal").modal('hide');
+                    } else {
+                        console.log("error occured")
+                    }
+
+                }
+            })
+
+        })
+
+
+
+        function razorpayPay(order) {
+
+            var options = {
+                "key": "rzp_test_qs7eMqSgdS6hr3", // Enter the Key ID generated from the Dashboard
+                "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "name": "Alexa Cars ",
+                "description": "Rental Car Booking",
+                "image": "https://example.com/your_logo",
+                "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "handler": function (response) {
+                    // alert(response.razorpay_payment_id);
+                    // alert(response.razorpay_order_id);
+                    //alert(response.razorpay_signature);
+
+
+                    verifyPayment(response, order)
+
+
+                },
+                "prefill": {
+                    "name": "Alexa Cars",
+                    "email": "alexacars24@gmail.com",
+                    "contact": "1234567890"
+                },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
+                },
+                "theme": {
+                    "color": "#FC6414"
+                }
+            };
+
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+
+
+        }
+
+
+        function verifyPayment(payment, order) {
+
+            $.ajax({
+                url: '/user/verify-payment',
+                data: {
+                    payment,
+                    order
+                },
+                method: 'post',
+                success: (response) => {
+
+                    if (response.status) {
+
+                        location.href = '/user/order-success'
+                    } else {
+                        alert("payment failed")
+                    }
+                }
+            })
+        }
+
+
+        /*Razor pay payment end*/
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>

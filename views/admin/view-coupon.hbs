@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    
+    
+
+    <!-- Table Start -->
+    <div class="container-fluid pt-4 px-4">
+       <a href="/admin/addnewcoupon" class="btn ms-4 mt-5" style="background-color: #FC6414; color: white;">Add New Coupon</a>
+      
+        <div class="row g-4 mt-3">
+            
+            <div class="col-12">
+                
+                <div class="bg-light rounded h-100 ">
+                    
+                    {{!-- <h6 class="mb-4">All Cars</h6> --}}
+
+                    <div id="wrapper" class="pt-5">
+
+                        <!-- Content Wrapper -->
+                        <div id="content-wrapper" class="d-flex flex-column pt-3">
+                            <div class="container-fluid">
+                                <!-- DataTales Example -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">All Coupons</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%"
+                                                cellspacing="0">
+                                               
+                                                <thead>
+                                                    
+                                                    <tr>
+                                                        <th>Coupon Name</th>
+                                                        <th>Coupon Code</th>
+                                                        <th>Coupon Limit</th>
+                                                        <th>Expiry Date</th>
+
+                                                        <th>Discount</th> 
+                                                        <th>Options</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody >
+                                                     {{#each allCouponData}}
+                                                    <tr>
+                                                        <td>{{this.couponName}}</td>
+                                                        <td>{{this.couponCode}}</td>
+                                                        <td>{{this.limit}}</td>
+                                                        <td>{{this.expirationTime}}</td>
+                                                        <td>{{this.discount}}</td>
+                                                       
+                                                        <td>
+                                                            <a href="/admin/edit-coupon?id={{this._id}}" class="btn btn-primary text-white"><i class="bi bi-pencil-fill"></i></a>
+                                                            <a href="/admin/delete-coupon?id={{this._id}}" class="btn btn-danger text-white"><i class="bi bi-trash-fill"></i></a>
+                                                        </td>
+                                                        
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                                
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+    <!-- Table End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-light rounded-top p-4">
+            <div class="row">
+                <div class="col-12 col-sm-6 text-center text-sm-start">
+                    &copy; <a href="#" style="color: #FC6414;">Alexa <span style="color: black;">Cars</span></a>, All Right Reserved.
+                </div>
+                {{!-- <div class="col-12 col-sm-6 text-center text-sm-end">
+                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                    Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                </div> --}}
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+ </div>
+<!-- Content End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</div>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

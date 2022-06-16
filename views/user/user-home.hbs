@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    {{!--------- stylesheet start ---------------}}
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+
+
+        body {
+            background-color: white;
+            font-family: "Poppins", sans-serif;
+            font-weight: 300;
+        }
+
+        .height {
+            height: 100vh;
+        }
+
+
+        .search {
+            position: relative;
+            box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+
+        }
+
+        .search input {
+
+            height: 60px;
+            text-indent: 25px;
+            border: 2px solid #d6d4d4;
+
+
+        }
+
+
+        .search input:focus {
+
+            box-shadow: none;
+            border: 2px solid blue;
+
+
+        }
+
+        .search .fa-search {
+
+            position: absolute;
+            top: 20px;
+            left: 16px;
+
+        }
+
+        .search button {
+
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            height: 50px;
+            width: 110px;
+            background: blue;
+
+        }
+
+        .fare-bo {
+            border-top: 1px solid #FC6414;
+            border-bottom: 1px solid #FC6414;
+        }
+
+        .fare1 {
+            width: 30%;
+            background-color: white;
+            text-align: center;
+            color: #FC6414;
+            border-radius: 10px;
+        }
+
+        .fare2 {
+            width: 30%;
+            background-color: white;
+            text-align: center;
+            color: #FC6414;
+            border-radius: 10px;
+        }
+
+        .fare3 {
+            width: 30%;
+
+            background-color: white;
+            text-align: center;
+            color: #FC6414;
+            border-radius: 10px;
+
+        }
+
+        .fare1:hover {
+            background-color: #FC6414;
+            color: white;
+            cursor: pointer;
+
+        }
+
+        .fare2:hover {
+            background-color: #FC6414;
+            color: white;
+            cursor: pointer;
+
+        }
+
+        .fare3:hover {
+            background-color: #FC6414;
+            color: white;
+            cursor: pointer;
+
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            color: inherit;
+        }
+
+        hr {
+            border: 0;
+            clear: both;
+            display: block;
+            width: 96%;
+            background-color: #FFFF00;
+            height: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container ">
+
+        <form action="/user/search" method="post">
+            {{#if userdateData}}
+           
+
+            <div class=" row input-container d-flex  mx-auto  mt-5 p-5 ">
+                <div class="col-md-2"></div>
+                <div class="col-md-6 p-3"
+                    style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 15px;">
+
+                    <div class="startDate truedata col-12  " style="">
+                        <h3>Find Your Car</h3>
+                        <input type="text" name="startdate" value="{{userdateData.startdate}}" class="basicDate" placeholder="Enter Pickup Date"
+                            style="width: 100%; height: 50px;border: 1px solid #FC6414;border-radius: 10px;padding:0 10px;">
+
+                    </div>
+                    <div class="endDate truedata col-12 mt-3">
+                        <input type="text" name="enddate" value="{{userdateData.enddate}}" class="basicDate" placeholder="Enter Dropoff Date"
+                            style="width: 100%; height: 50px;border: 1px solid #FC6414;border-radius: 10px;padding:0 10px;">
+
+                    </div>
+
+
+                    <div class="searchbtn col-12 text-center mt-3">
+                        {{!-- <a href=""> --}}
+                            <button class="btn mx-auto" style="background-color: #FC6414; color: white;height: 50px;"
+                                type="submit">Search</button>
+                            {{!-- </a> --}}
+                    </div>
+
+
+                </div>
+               
+            </div>
+
+
+
+
+            {{else}}
+
+
+
+
+
+
+            <div class=" row input-container d-flex  mx-auto  mt-5 p-5 ">
+                <div class="col-md-2"></div>
+                <div class="col-md-6 p-3"
+                    style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 15px;">
+
+                    <div class="startDate truedata col-12  " style="">
+                        <input type="text" name="startdate" value="" class="basicDate" placeholder="Enter Pickup Date"
+                            style="width: 100%; height: 50px;border: 1px solid #FC6414;border-radius: 10px;padding:0 10px;">
+
+                    </div>
+                    <div class="endDate truedata col-12 mt-3">
+                        <input type="text" name="enddate" value="" class="basicDate" placeholder="Enter Dropoff Date"
+                            style="width: 100%; height: 50px;border: 1px solid #FC6414;border-radius: 10px;padding:0 10px;">
+
+                    </div>
+
+
+                    <div class="searchbtn col-12 text-center mt-3">
+                        {{!-- <a href=""> --}}
+                            <button class="btn mx-auto" style="background-color: #FC6414; color: white;height: 50px;"
+                                type="submit">Search</button>
+                            {{!-- </a> --}}
+                    </div>
+
+
+                </div>
+                {{!-- <div class="col-md-4 mt-md-0 mt-5">
+                    <div class="filter-box bg-white d-flex flex-column px-5 py-3"
+                        style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 15px;height: 220px;">
+
+                        <label for="" class="">Fuel Type:</label>
+                        <div class="filter-types mt-1">
+                            <label for="">Petrol<label>
+                                    <input type="checkbox" id="petrol" name="name-petrol" value="petrolValue"
+                                        class="searchType">
+                                    <label for="">Diesel</label>
+                                    <input type="checkbox" id="diesel" name="diesel" value="diesel" class="searchType">
+                        </div>
+                        <hr>
+                        <label for="" class="mt-3">transmission Type:</label>
+                        <div class="filter-types mt-1">
+                            <label for="">Manual</label>
+                            <input type="checkbox" id="manual" name="Manual" value="manual" class="searchType">
+                            <label for="">Automatic</label>
+                            <input type="checkbox" id="automatic" name="Automatic" value="automatic" class="searchType">
+                        </div>
+
+                        <button class="btn mx-auto" style="background-color: #FC6414; color: white;height: 50px;"
+                            type="submit">Search</button> 
+
+                    </div>
+                </div> --}}
+            </div>
+            {{/if}}
+        </form>
+
+
+
+
+
+
+
+
+        <div class="row  mt-3 pt-3">
+            <h4 class="fw-bold">Our Special Car Rental Plans and Rates</h4>
+            <hr style="color: #FC6414; height: 3px;">
+            {{#each allCarData}}
+            <div class="col-sm-6 col-md-6 col-lg-4 mt-5">
+                <div class="card " style="width: 22rem; border-radius: 15px;">
+                    <div class="div card-img-top" style="background-color: #E5E5E5;border-radius: 15px 15px 0 0;">
+                        <img src="/images/Cars/{{this.image}}" class="card-img-top" alt="..." style="">
+                        <h5 class="card-title ms-4">{{this.modelname}}</h5>
+                    </div>
+                    <div class="card-body p-0">
+
+                        <div class="div"
+                            style="width: 100%; display: flex; align-items: center; justify-content: space-evenly;background-color: rgb(241, 232, 232);">
+                            <img src="/images/icons8-gearbox-80.png" style="width: 28px;height: 28px;" alt="">
+                            <p style="margin-top: 10px;">{{this.transmission}}</p>
+                            <img src="/images/icons8-gas-station-50.png" style="width: 28px;height: 28px;" alt="">
+                            <p style="margin-top: 10px;">{{this.fueltype}}</p>
+                            <img src="/images/icons8-car-seat-50.png" style="width: 28px;height: 28px;" alt="">
+                            <p style="margin-top: 10px;">{{this.seats}} Seats</p>
+                        </div>
+                        <div class="fare-box  p-2" style="width: 100%;display: flex; justify-content: space-between;">
+                            <div class="fare1 p-3" style="">
+                                <a href="/user/booking-summary?id={{this._id}}&plan={{this.fareplan.[0].plan1.plan}}">
+                                    <p style="font-weight: bold;margin: auto; colo: #FC6414;"> &#x20b9;
+                                        {{this.fareplan.[0].plan1.fare}}</p>
+                                    <small
+                                        style="font-size: 11px;colo: #FC6414;font-weight: bold">{{this.fareplan.[0].plan1.kms}}
+                                        Kms/day</small>
+                                </a>
+                            </div>
+                            <div class="fare2 p-3" style="">
+                                <a href="/user/booking-summary?id={{this._id}}&plan={{this.fareplan.[0].plan2.plan}}">
+                                    <p style="font-weight: bold;margin: auto;"> &#x20b9;
+                                        {{this.fareplan.[0].plan2.fare}}</p>
+                                    <small style="font-size: 11px;font-weight: bold">{{this.fareplan.[0].plan2.kms}}
+                                        Kms/day</small>
+                                </a>
+                            </div>
+                            <div class="fare3 p-3" style="">
+                                <a href="/user/booking-summary?id={{this._id}}&plan={{this.fareplan.[0].plan3.plan}}">
+                                    <p style="font-weight: bold;margin: auto;"> &#x20b9;
+                                        {{this.fareplan.[0].plan3.fare}}</p>
+                                    <small style="font-size: 11px;font-weight: bold">{{this.fareplan.[0].plan3.kms}}
+                                    </small>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="div "
+                            style="background-color: #FFDBDB;height: 70px ;display: flex;align-items: center;justify-content: center; border-radius: 0 0 15px 15px;">
+                            <p class="card-text ms-4">Extra Kms charge @ &#x20b9; {{this.extrafare}}/Km.</p>
+                            {{!-- <a href="#" class="btn mx-auto"
+                                style="background-color: #FC6414;color: white;height: fit-content;">Book</a> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+
+        </div>
+
+
+    </div>
+
+
+
+    <!--  Flatpickr  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+
+    <script>
+        $(".basicDate").flatpickr({
+            enableTime: true,
+            dateFormat: "F, d Y H:i",
+            minDate: "today",
+            maxDate: new Date().fp_incr(30),
+            disableMobile: "true"
+
+        });
+    </script>
+
+
+    <script>
+        $('.searchType').click(function () {
+
+            alert($(this).attr('id'));  //-->this will alert id of checked checkbox.
+            console.log(this.name)
+            var name = this.name
+            var value = this.value
+
+
+            if (this.checked) {
+                $.ajax({
+
+                    type: "POST",
+                    url: '/user/filter-search/' + this.value,
+                    async: false,
+                    dataType: 'text',
+                    processData: false,
+                    // data: $(this).attr('id'), //--> send id of checked checkbox on other page
+
+                    data: ({ status: name, name: value }),
+                    success: function (data) {
+                        alert('it worked');
+                        alert(data);
+                        $('#container').html(data);
+                    },
+                    error: function () {
+                        alert('it broke');
+                    },
+                    complete: function () {
+                        alert('it completed');
+                    }
+                });
+                //alert("checked ok")
+            }
+        });
+    </script>
+
+   
+
+
+
+
+
+</body>
+
+</html>

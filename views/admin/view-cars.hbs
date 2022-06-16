@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+    <style>
+        
+       /*modal stylesheet start*/
+        .modal-box {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .show-modal {
+            color: #fff;
+            background: linear-gradient(to right, #33a3ff, #0675cf, #49a6fd);
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: capitalize;
+            padding: 10px 15px;
+            margin: 200px auto 0;
+            border: none;
+            outline: none;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            display: block;
+            transition: all 0.3s ease 0s;
+        }
+
+        .show-modal:hover,
+        .show-modal:focus {
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            outline: none;
+        }
+
+        .modal-dialog {
+            width: 400px;
+            margin: 70px auto 0;
+        }
+
+        .modal-dialog {
+            transform: scale(0.5);
+        }
+
+        .modal-dialog {
+            transform: scale(1);
+        }
+
+        .modal-dialog .modal-content {
+            text-align: center;
+            border: none;
+        }
+
+        .modal-content .close {
+            /*color: #fff;
+    /* background: linear-gradient(to right, #33a3ff, #0675cf, #4cd5ff); */
+            /*background-color: #FC6414;*/
+            background-color: white;
+            color: #FC6414;
+            font-size: 25px;
+            font-weight: 400;
+            text-shadow: none;
+            line-height: 27px;
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            overflow: hidden;
+            opacity: 1;
+            position: absolute;
+            left: auto;
+            right: 7px;
+            top: 8px;
+            z-index: 1;
+            transition: all 0.3s;
+            outline: none;
+            border: none;
+        }
+
+        .modal-content .close:hover {
+            background-color: #FC6414;
+            color: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .close:focus {
+            outline: none;
+        }
+
+        .modal-body {
+            padding: 60px 40px 40px !important;
+        }
+
+        .modal-body .title {
+            color: #FC6414;
+            font-size: 33px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 0 0 10px;
+        }
+
+        .modal-body .description {
+            color: #9A9EA9;
+            font-size: 16px;
+            margin: 0 0 20px;
+        }
+
+        .modal-body .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .modal-body .input-icon {
+            color: #777;
+            font-size: 18px;
+            transform: translateY(-50%);
+            position: absolute;
+            top: 50%;
+            left: 20px;
+        }
+
+        .modal-body .form-control {
+            font-size: 17px;
+            height: 45px;
+            width: 100%;
+            padding: 6px 0 6px 50px;
+            margin: 0 auto;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            box-shadow: none;
+            outline: none;
+        }
+
+        .form-control::placeholder {
+            color: #AEAFB1;
+        }
+
+        .id-control {
+            font-size: 17px;
+            height: 45px;
+            width: 100%;
+            padding: 6px 0 6px 50px;
+            margin: 0 auto;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            box-shadow: none;
+            outline: none;
+        }
+
+        .form-group.checkbox {
+            width: 130px;
+            margin-top: 0;
+            display: inline-block;
+        }
+
+        .form-group.checkbox label {
+            color: #9A9EA9;
+            font-weight: normal;
+        }
+
+        .form-group.checkbox input[type=checkbox] {
+            margin-left: 0;
+        }
+
+        .modal-body .forgot-pass {
+            color: #7F7FD5;
+            font-size: 13px;
+            text-align: right;
+            width: calc(100% - 135px);
+            margin: 2px 0;
+            display: inline-block;
+            vertical-align: top;
+            transition: all 0.3s ease 0s;
+        }
+
+        .forgot-pass:hover {
+            color: #9A9EA9;
+            text-decoration: underline;
+        }
+
+        .modal-content .modal-body .btn {
+            color: #fff;
+            /* background: linear-gradient(to right, #33a3ff, #0675cf, #4cd5ff); */
+            /* background-color: #FC6414;*/
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            line-height: 38px;
+            width: 100%;
+            height: 40px;
+            padding: 0;
+            border: none;
+            border-radius: 5px;
+            border: none;
+            display: inline-block;
+            transition: all 0.6s ease 0s;
+        }
+
+        .modal-content .modal-body .btn:hover {
+            color: #fff;
+            letter-spacing: 2px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content .modal-body .btn:focus {
+            outline: none;
+        }
+
+        @media only screen and (max-width: 480px) {
+            .modal-dialog {
+                width: 95% !important;
+            }
+
+            .modal-content .modal-body {
+                padding: 60px 20px 40px !important;
+            }
+        }
+
+        .form-group input::placeholder {
+            opacity: 1;
+        }
+
+        .deletebtn {
+            background-color: red;
+            color: white;
+        }
+
+        .cancelbtn {
+            background-color: white;
+            color: #FC6414 !important;
+        }
+
+
+        /*modal stylesheet end*/
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            color: inherit;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+
+    <!-- Table Start -->
+    <div class="container-fluid pt-4 px-4">
+
+
+
+
+        <div class="row">
+            <div class="col-6 col-md-2 mt-3 ">
+                <a href="/admin/addnewcar" class="btn " style="background-color: #FC6414; color: white;">Add New Car</a>
+            </div>
+            <div class="col-6 col-md-2 mt-3 ">
+                <a href="/admin/bookedcars" class="btn ms-3" style="background-color: #FC6414; color: white;">Booked
+                    Cars</a>
+            </div>
+            <div class="col-6 col-md-2  mt-3 ">
+                <a href="/admin/deliveredcars" class="btn ms-md-3 mt-sm-0 "
+                    style="background-color: #FC6414; color: white;">Delivered Cars</a>
+            </div>
+            <div class="col-6 col-md-2  mt-3 ">
+                <a href="/admin/returnedcars" class="btn ms-3 mt-md-0"
+                    style="background-color: #FC6414; color: white;">Returned
+                    Cars</a>
+            </div>
+            <div class="col-6 col-md-2  mt-3 ">
+                <a href="/admin/cancelledbookings" class="btn ms-md-3 mt-md-0"
+                    style="background-color: #FC6414; color: white;">Cancelled </a>
+            </div>
+           
+        </div>
+
+
+
+
+
+        <div class="row g-4 mt-3">
+
+            <div class="col-12">
+
+                <div class="bg-light rounded h-100 ">
+                   
+                    {{!-- <h6 class="mb-4">All Cars</h6> --}}
+
+                    <div id="wrapper" class="pt-5">
+
+                        <!-- Content Wrapper -->
+                        <div id="content-wrapper" class="d-flex flex-column pt-3">
+                            <div class="container-fluid">
+                                <!-- DataTales Example -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">All Cars</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%"
+                                                cellspacing="0">
+
+                                                <thead>
+
+                                                    <tr>
+                                                        <th>Model Name</th>
+                                                        <th>Transmission</th>
+                                                        <th>Fuel</th>
+                                                        <th>Seats</th>
+
+                                                        <th>Plan1</th>
+                                                        <th>Fare</th>
+                                                        <th>Plan2</th>
+                                                        <th>Fare</th>
+                                                        <th>Plan3</th>
+                                                        <th>Fare</th>
+
+                                                        <th>Image</th>
+                                                        <th>Deposit</th>
+                                                        <th>Options</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#each allCars}}
+                                                    <tr>
+                                                        <td>{{this.modelname}}</td>
+                                                        <td>{{this.transmission}}</td>
+                                                        <td>{{this.fueltype}}</td>
+                                                        <td>{{this.seats}}</td>
+
+
+                                                        <td>{{this.fareplan.[0].plan1.kms}}</td>
+                                                        <td>{{this.fareplan.[0].plan1.fare}}</td>
+                                                        <td>{{this.fareplan.[0].plan2.kms}}</td>
+                                                        <td>{{this.fareplan.[0].plan2.fare}}</td>
+                                                        <td>{{this.fareplan.[0].plan3.kms}}</td>
+                                                        <td>{{this.fareplan.[0].plan3.fare}}</td>
+
+                                                        <td><img src="/images/Cars/{{this.image}}" alt=""
+                                                                style="width: 45px;height: 45px;"></td>
+                                                        <td>{{this.deposit}}</td>
+                                                        <td>
+                                                            <a href="/admin/edit-car?id={{this._id}}"
+                                                                class="btn btn-primary text-white"><i
+                                                                    class="bi bi-pencil-fill"></i></a>
+
+
+
+                                                            <a href="" class="btn btn-danger text-white"
+                                                                data-bs-toggle="modal" data-bs-target="#myModal"
+                                                                type="submit"><i class="bi bi-trash-fill"></i></a>
+                                                        </td>
+
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Table End -->
+
+
+
+
+    {{!-- --}}
+
+
+
+
+    {{!-- modal start --}}
+{{#each allCars}}
+
+    <div class="modal-box">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                <div class="modal-content clearfix " id="">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                    <div class="modal-body">
+                        <form action="" method="post" id="id-form">
+
+                            <div class="form-group">
+                                <p>Do you want to delete this ?</p>
+                            </div>
+                            <button class="btn deletebtn " type="button"><a href="/admin/delete-car?id={{this._id}}">
+                                    yes,confirm</a></button>
+
+                            <button class="btn mt-3 cancelbtn" type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">Cancel</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/each}}
+    {{!-- modal end --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-light rounded-top p-4">
+            <div class="row">
+                <div class="col-12 col-sm-6 text-center text-sm-start">
+                    &copy; <a href="#" style="color: #FC6414;">Alexa <span style="color: black;">Cars</span></a>, All
+                    Right Reserved.
+                </div>
+                {{!-- <div class="col-12 col-sm-6 text-center text-sm-end">
+                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                    Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                </div> --}}
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    </div>
+    <!-- Content End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

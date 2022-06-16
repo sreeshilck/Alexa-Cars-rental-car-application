@@ -1,0 +1,202 @@
+
+
+
+
+
+
+{{!--============= Stylesheet ============--}}
+<style>
+  .signinbtn {
+    width: 91px !important;
+    border-radius: 10px !important;
+    height: 36px !important;
+    background-color: #FC6414;
+    outline: none;
+    text-align: center !important;
+    border: none !important;
+    color: white !important;
+    cursor: pointer;
+
+  }
+
+  .navbar .nav-link,
+  .navbar-brand {
+    color: black;
+  }
+
+</style>
+{{!--=================== NavBar Start================= --}}
+<section>
+  <nav class="navbar navbar-expand-lg  navbar-light  pe-lg-5 p-3 " style="box-shadow: 0 0 2px 0 #FC6414;">
+    <div class="container-fluid">
+      <a class="navbar-brand ms-3 fw-bold" href="#">RENT A <span style="color: #FC6414;">CAR</span></a>
+      <button class="navbar-toggler" style="border: none;outline: 1px #FC6414 solid;" type="button"
+        data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" style="text-algn: center;">
+        {{#if userValue}}
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0  mx-auto  "
+          style="display: inline-bloc;floa: none;vertical-alig: top;">
+          <li class="nav-item mx-3">
+            <a class="nav-link active fw-bold" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item mx-3">
+            <a class="nav-link active fw-bold" href="/user/order-history">Order History</a>
+          </li>
+          <li class="nav-item mx-3">
+            <a class="nav-link active fw-bold" href="/user/user-profile">Profile</a>
+          </li>
+        </ul>
+       
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+              data-bs-toggle="dropdown" aria-expanded="false"
+              style="background-color: #FC6414; color: white; outline: none; border: none;">
+              {{userValue.name}}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="/user/user-logout">Logout</a></li>
+             
+            </ul>
+          </div>
+        
+
+        {{else}}
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0  mx-auto  "
+          style="display: inline-bloc;floa: none;vertical-alig: top;">
+          <li class="nav-item mx-3">
+            <a class="nav-link active fw-bold" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item mx-3">
+            <a class="nav-link active fw-bold" href="/user/about">About</a>
+          </li>
+          <li class="nav-item mx-3">
+            <a class="nav-link active fw-bold" href="/user/contactus">Contact Us</a>
+          </li>
+        </ul>
+        <div class="d-flex">
+          <button class="signinbtn fs-6 fw-bolder ms-3 d-table" type="submit" data-bs-toggle="modal"
+            data-bs-target="#ModalForm">Sign In</button>
+        </div>
+
+        {{/if}}
+      </div>
+    </div>
+  </nav>
+</section>
+
+{{!--=================== NavBar End================= --}}
+
+
+{{!--============ Bootstrap Modal Start ===========--}}
+<section>
+  {{#if logginError}}
+  <div class="modal fade" id="ModalForm" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+    data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 15px;">
+        <!--====== Login Form ========-->
+        <div class="modal-header" style="background-color: #FC6414; color: white; border-radius: 15px 15px 0 0;">
+          <h5 class="modal-title">Sign In </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/user/user-login" method="post" id="login-form">
+          <div class="modal-body">
+            <p style="color: red; font-weight:normal">{{logginError}}</p>
+
+            {{else if resetSuccessMsg}}
+            <div class="modal fade" id="ModalForm" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+              data-bs-keyboard="false">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="border-radius: 15px;">
+                  <!--====== Login Form ========-->
+                  <div class="modal-header"
+                    style="background-color: #FC6414; color: white; border-radius: 15px 15px 0 0;">
+                    <h5 class="modal-title">Sign In </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <form action="/user/user-login" method="post" id="login-form">
+                    <div class="modal-body">
+                      <p style="color: green; font-weight:normal">{{resetSuccessMsg}}</p>
+
+                      {{else}}
+                      <div class="modal fade" id="ModalForm" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content" style="border-radius: 15px;">
+                            <!--====== Login Form ========-->
+                            <div class="modal-header"
+                              style="background-color: #FC6414; color: white; border-radius: 15px 15px 0 0;">
+                              <h5 class="modal-title">Sign In </h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <form action="/user/user-login" method="post" id="login-form">
+                              <div class="modal-body">
+                                {{/if}}
+
+                                <div class="mb-3">
+                                  <label for="Username">Email<span class="text-danger">*</span></label>
+                                  <input type="text" name="email" class="form-control" id="email"
+                                    placeholder="Enter Email" value="sreeshilck777@gmail.com">
+                                   
+                                </div>
+
+                                <div class="mb-3">
+                                  <label for="Password">Password<span class="text-danger">*</span></label>
+                                  <input type="password" name="password" class="form-control" id="Password"
+                                    placeholder="Enter Password" value="123">
+                                    
+                                </div>
+
+                                <div class="mb-3">
+                                  <input class="form-check-input" type="checkbox" value="" id="remember">
+                                  <label class="form-check-label" for="remember">Remember Me</label>
+                                  <a href="/user/reset" class="float-end">Forgot Password</a>
+                                </div>
+                              </div>
+                              <div class="modal-footer pt-4">
+                                <button type="submit" class="btn  mx-auto w-100"
+                                  style="background-color: #FC6414; color: white;" form="login-form">Login</button>
+                              </div>
+                              <p class="text-center">Not a user yet, <a href="/user/user-signup"
+                                  style="color: #FC6414;">Signup</a>
+                                now
+                              </p>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      {{!--========== Bootstrap Modal End ============--}}
+
+
+</section>
+
+
+
+
+
+
+{{#if logginError}}
+<script>
+  $(document).ready(function () {
+    $("#ModalForm").modal('show');
+  });
+
+</script>
+
+{{/if}}
+
+
+
+{{#if resetSuccessMsg}}
+<script>
+  $(document).ready(function () {
+    $("#ModalForm").modal('show');
+  });
+
+</script>
+
+{{/if}}
+

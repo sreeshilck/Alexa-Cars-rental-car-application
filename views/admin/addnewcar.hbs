@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+    {{!-- ========= Admin view-users datatable Start ============== --}}
+    <!-- Custom fonts for this template -->
+    <link href="/vendor/admin/view-users/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link hre="/stylesheets/admin/view-users-css/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="/vendor/admin/view-users/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    {{!-- =========== Admin view-users datatable End ============== --}}
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        select {
+            -webkit-appearance: none;
+            /*webkit browsers */
+            -moz-appearance: none;
+            /*Firefox */
+            appearance: none;
+            /* modern browsers */
+            border-radius: 0;
+
+            background-color: white;
+
+
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+
+    <div class="container-fluid pt-4 px-4">
+        <div class="row">
+            <div class="col-6 col-md-2 mt-3 ">
+                <a href="/admin/addnewcar" class="btn "
+                    style="background-color: #FC6414; color: white;border-radius: 10px;">Add New Car</a>
+            </div>
+            <div class="col-6 col-md-2 mt-3 ">
+                <a href="/admin/bookedcars" class="btn ms-3"
+                    style="background-color: #FC6414 white; color: #FC6414; border: 1px solid #FC6414;border-radius: 10px; ">Booked
+                    Cars</a>
+            </div>
+            <div class="col-6 col-md-2  mt-3 ">
+                <a href="/admin/deliveredcars" class="btn ms-md-3 mt-sm-0 "
+                    style="background-color: #FC6414 white; color: #FC6414; border: 1px solid #FC6414;border-radius: 10px; ">Delivered
+                    Cars</a>
+            </div>
+            <div class="col-6 col-md-2  mt-3 ">
+                <a href="/admin/returnedcars" class="btn ms-3 mt-md-0"
+                    style="background-color: #FC6414 white; color: #FC6414; border: 1px solid #FC6414;border-radius: 10px; ">Returned
+                    Cars</a>
+            </div>
+            <div class="col-6 col-md-2  mt-3 ">
+                <a href="/admin/cancelledbookings" class="btn ms-md-3 mt-md-0"
+                    style="background-color: #FC6414 white; color: #FC6414; border: 1px solid #FC6414;border-radius: 10px; ">Cancelled</a>
+            </div>
+            
+        </div>
+
+    </div>
+
+
+    <!-- Form Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <form action="/admin/newcar" method="post" enctype="multipart/form-data">
+                <div class="col-12 px-5">
+                    <div class="bg-light rounded h-100 p-4">
+                        <h6 class="mb-4">Add New Car</h6>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="modelname" class="form-control" id="floatingInput"
+                                placeholder="Car Model  Name">
+                            <label for="floatingSelect">Car Model Name </label>
+                        </div>
+                        <div class="form-floating mb-3 ">
+                            <select class="form-select" name="transmission" id="floatingSelect"
+                                aria-label="Floating label select example">
+                                <option selected>Transmission Type</option>
+                                <option value="Manual">Manual</option>
+                                <option value="Automatic">Automatic</option>
+                            </select>
+                            {{!-- <label for="floatingPassword">Transmission Type</label> --}}
+                        </div>
+                        <div class="form-floating mb-3 ">
+                            <select class="form-select" name="fueltype" id="floatingSelect"
+                                aria-label="Floating label select example">
+                                <option selected>Fuel Type</option>
+                                <option value="Petrol">Petrol</option>
+                                <option value="Diesel">Diesel</option>
+                            </select>
+                            {{!-- <label for="floatingSelect">Fuel Type</label> --}}
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="seats" id="floatingSelect"
+                                aria-label="Floating label select example">
+                                <option selected>Seats</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                            </select>
+                            {{!-- <label for="floatingSelect">Seats</label> --}}
+                        </div>
+
+
+
+
+
+
+                        <div class="fare-box">
+                            <div class="row " id="row">
+                                <label for="" class="mb-3">Rental Plans and Fare</label>
+                                <div class="plan1 col-md-3 form-floating mb-3">
+                                    <input type="text" name="planname1" class="form-control" id="floatingInput"
+                                        placeholder="Enter Plan Name">
+                                    {{!-- <select name="planname1" id="floatingSelect" class="form-select"
+                                        aria-label="Floating label select example">
+                                        <option selected>Select Plan</option>
+                                        <option value="Plan1">Plan 1</option>
+                                        <option value="Plan2">Plan 2</option>
+                                        <option value="Plan3">Plan 3</option>
+                                    </select> --}}
+                                    <label for="floatingSelect" class="ms-2">Enter Plan Name</label>
+
+                                </div>
+                                <div class="plan2 col-md-3 form-floating mb-3">
+                                    <input type="text" name="kms1" class="form-control " id="floatingInput"
+                                        placeholder="Enter Kms">
+                                    <label for="floatingSelect" class="ms-2">Enter Kms</label>
+                                </div>
+                                <div class="plan3 col-md-3 form-floating mb-3">
+                                    <input type="text" name="fare1" class="form-control" id="floatingInput"
+                                        placeholder="Enter Fare">
+                                    <label for="floatingSelect" class="ms-2">Enter Fare</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="fare-box">
+                            <div class="row " id="row">
+
+                                <div class="plan1 col-md-3 form-floating mb-3">
+                                    <input type="text" name="planname2" class="form-control" id="floatingInput"
+                                        placeholder="Enter Plan Name">
+                                   
+                                    <label for="floatingSelect" class="ms-2">Enter Plan Name</label>
+                                </div>
+                                <div class="plan2 col-md-3 form-floating mb-3">
+                                    <input type="text" name="kms2" class="form-control " id="floatingInput"
+                                        placeholder="Enter Kms">
+                                    <label for="floatingSelect" class="ms-2">Enter Kms</label>
+                                </div>
+                                <div class="plan3 col-md-3 form-floating mb-3">
+                                    <input type="text" name="fare2" class="form-control" id="floatingInput"
+                                        placeholder="Enter Fare">
+                                    <label for="floatingSelect" class="ms-2">Enter Fare</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="fare-box">
+                            <div class="row " id="row">
+
+                                <div class="plan1 col-md-3 form-floating mb-3">
+                                    <input type="text" name="planname3" class="form-control" id="floatingInput"
+                                        placeholder="Enter Plan Name">
+                                   
+                                    <label for="floatingSelect" class="ms-2">Enter Plan Name</label>
+                                </div>
+                                <div class="plan2 col-md-3 form-floating mb-3">
+                                    <input type="text" name="kms3" class="form-control " id="floatingInput"
+                                        placeholder="Enter Kms">
+                                    <label for="floatingSelect" class="ms-2">Enter Kms</label>
+                                </div>
+                                <div class="plan3 col-md-3 form-floating mb-3">
+                                    <input type="text" name="fare3" class="form-control" id="floatingInput"
+                                        placeholder="Enter Fare">
+                                    <label for="floatingSelect" class="ms-2">Enter Fare</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+                        <label for="" class="mb-3">Extra Kms Charge</label>
+                        <div class="plan1 col-md-3 form-floating mb-3">
+                            <input type="text" name="extrafare" class="form-control" id="floatingInput"
+                                placeholder="Extra fare per Km">
+                            <label for="floatingSelect" class="ms-2">Extra fare per Km</label>
+                        </div>
+
+                        <div class="mb-3">
+                            <input class="form-control" type="file" name="image" id="formFile"
+                                onchange="viewImage(event)">
+                            <img src="/images/Cars/" alt="" style="width: 80px;height: 80px;" class="mb-3 mt-3"
+                                id="imgviews">
+                        </div>
+                        <div class="form-floating mb-3 ">
+                            <input type="number" class="form-control" id="floatingInput" name="deposit"
+                                placeholder="Security Deposit">
+                            <label for="floatingSelect">Security Deposit</label>
+                        </div>
+                        <div class="mb-3 mt-4">
+                            <input class="btn" style="background-color: #FC6414; color: white;" type="submit"
+                                value="Save">
+                            <input class="btn" style="color: #FC6414; background-color: white;" type="button"
+                                value="Cancel">
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Form End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-light rounded-top p-4">
+            <div class="row">
+                <div class="col-12 col-sm-6 text-center text-sm-start">
+                    &copy; <a href="#" style="color: #FC6414;">AlexaCars</a> , All Right Reserved.
+                </div>
+                <div class="col-12 col-sm-6 text-center text-sm-end">
+                
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    </div>
+    <!-- Content End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+
+
+
+
+    <!-- Page level custom scripts -->
+    <script src="/javascripts/admin/view-users/js/demo/datatables-demo.js"></script>
+    {{!--=========== Admin view users js End ============ --}}
+
+
+
+    
+    <script type="text/javascript">
+
+    
+
+
+
+        function viewImage(event) {
+            document.getElementById('imgviews').src = URL.createObjectURL(event.target.files[0])
+        }
+
+
+    </script>
+   
+
+
+
+</body>
+
+</html>

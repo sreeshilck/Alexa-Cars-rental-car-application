@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+
+    <!-- booked car details Table Start -->
+    <div class="container-fluid pt-4 px-4">
+       
+        <div class="row g-4 mt-3">
+            
+            <div class="col-12">
+                
+                <div class="bg-light rounded h-100 ">
+                    
+                    {{!-- <h6 class="mb-4">All Cars</h6> --}}
+
+                    <div id="wrapper" class="pt-5">
+
+                        <!-- Content Wrapper -->
+                        <div id="content-wrapper" class="d-flex flex-column pt-3">
+                            <div class="container-fluid">
+                                <!-- DataTales Example -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Booked Car Details
+                                        </h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%"
+                                                cellspacing="0">                                              
+                                                <thead>                                                   
+                                                    <tr>
+                                                        
+                                                        <th>Model Name</th>
+                                                        <th>Transmission</th>
+                                                        <th>Fuel</th>
+                                                        <th>Seats</th>
+                                                        <th>Plan</th> 
+                                                        <th>Fare</th>
+                                                        <th>Image</th>
+                                                        <th>Deposit</th>
+                                                        <th>Amount Paid</th>
+                                                        <th>Payment Id</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody >
+                                                    <tr>
+                                                        <td>{{bookedcar.modelname}}</td>
+                                                        <td>{{bookedcar.transmission}}</td>
+                                                        <td>{{bookedcar.fueltype}}</td>
+                                                        <td>{{bookedcar.seats}}</td>
+                                                        <td>{{bookedData.kmplan.kms}}</td>
+                                                        <td>{{bookedData.kmplan.fare}}</td>
+                                                        <td><img src="/images/Cars/{{bookedcar.image}}" alt="" style="width: 45px;height: 45px;"></td>
+                                                        <td>{{bookedcar.deposit}}</td>
+                                                        <td>{{bookedData.PaidAmount}}</td> 
+                                                        <td>{{bookedData.paymentId}}</td> 
+                                                    </tr>
+                                                </tbody> 
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+    <!--booked car details Table End -->
+
+
+
+
+
+
+
+
+
+
+    <!-- user deatails Table Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            
+           
+            <div class="col-12">
+                <div class="bg-light rounded h-100 ">
+                    {{!-- <h6 class="mb-4">Responsive Table</h6> --}}
+
+                    <div id="wrapper" class="pt-5">
+
+                        <!-- Content Wrapper -->
+                        <div id="content-wrapper" class="d-flex flex-column pt-3">
+                            <div class="container-fluid">
+                                <!-- DataTales Example -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Booked User Details</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%"
+                                                cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Phone Number</th>
+                                                        <th>Date of Birth</th> 
+                                                        <th>ID Card</th> 
+                                                        <th>ID Card No</th> 
+                                                        <th>Driving License No</th> 
+                                                    </tr>
+                                                </thead>
+                                               
+                                                <tbody>                                                    
+                                                    <tr>
+                                                        <td>{{bookeduser.name}}</td>
+                                                        <td>{{bookeduser.email}}</td>
+                                                        <td>{{bookeduser.phonenumber}}</td>
+                                                        <td>{{userDob}}</td>
+                                                        <td>{{bookeduser.idCard}}</td>
+                                                        <td>{{bookeduser.idCardNo}}</td>
+                                                        <td>{{bookeduser.drivingLicenceNo}}</td>                                                      
+                                                    </tr>                                                  
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+    <!-- user deatails Table End -->
+
+
+
+
+
+
+
+
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-light rounded-top p-4">
+            <div class="row">
+                <div class="col-12 col-sm-6 text-center text-sm-start">
+                    &copy; <a href="#" style="color: #FC6414;">Alexa <span style="color: black;">Cars</span></a>, All Right Reserved.
+                </div>
+                {{!-- <div class="col-12 col-sm-6 text-center text-sm-end">
+                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                    Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                </div> --}}
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+ </div>
+<!-- Content End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+       <!-- Template Javascript -->
+    {{!-- <script src="/javascripts/admin/admin-panel/js/main.js"></script> --}}
+
+    
+ {{!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script> --}}
+
+
+
+
+    
+</body>
+</html>

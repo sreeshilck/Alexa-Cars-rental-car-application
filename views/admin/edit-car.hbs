@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+    {{!-- ========= Admin view-users datatable Start ============== --}}
+    <!-- Custom fonts for this template -->
+    <link href="/vendor/admin/view-users/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link hre="/stylesheets/admin/view-users-css/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="/vendor/admin/view-users/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    {{!-- =========== Admin view-users datatable End ============== --}}
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        select {
+  -webkit-appearance: none;
+  /*webkit browsers */
+  -moz-appearance: none;
+  /*Firefox */
+  appearance: none;
+  /* modern browsers */
+  border-radius: 0;
+  
+  background-color: white;
+  
+
+}
+    </style>
+
+
+</head>
+
+<body>
+
+    <!-- Form Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <form action="/admin/updatecar?id={{getCarData._id}}" method="post" enctype="multipart/form-data">
+                <div class="col-12 px-5">
+                    <div class="bg-light rounded h-100 p-4">
+                        <h6 class="mb-4">Edit Car</h6>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="modelname" class="form-control" id="floatingInput"
+                                placeholder="Car Model  Name" value="{{getCarData.modelname}}">
+                            <label for="floatingSelect">Car Model Name </label>
+                        </div>
+                        <div class="form-floating mb-3 ">
+                            <select class="form-select" name="transmission" id="floatingSelect"
+                                aria-label="Floating label select example" >
+                                {{#if getCarData.transmission}}
+                                <option selected>{{getCarData.transmission}}</option>
+                                {{else}}
+                                <option selected>Transmission Type</option>
+                                {{/if}}
+                                <option value="Manual">Manual</option>
+                                <option value="Automatic">Automatic</option>
+                            </select>
+                            <label for="floatingPassword">Transmission Type</label>
+                        </div>
+                        <div class="form-floating mb-3 ">
+                            <select class="form-select" name="fueltype" id="floatingSelect"
+                                aria-label="Floating label select example">
+                                {{#if getCarData.fueltype}}
+                                <option selected>{{getCarData.fueltype}}</option>
+                                 {{else}}
+                                <option selected>Fuel Type</option>
+                                {{/if}}
+                                <option value="Petrol">Petrol</option>
+                                <option value="Diesel">Diesel</option>
+                            </select>
+                            <label for="floatingSelect">Fuel Type</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="seats" id="floatingSelect"
+                                aria-label="Floating label select example">
+                                 {{#if getCarData.seats}}
+                                <option selected>{{getCarData.seats}}</option>
+                                {{else}}
+                                <option selected>Seats</option>
+                                {{/if}}
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                            </select>
+                            <label for="floatingSelect">Seats</label>
+                        </div>
+
+
+
+
+
+                        
+                        <div class="fare-box">
+                            <div class="row "  id="row">
+                                <label for="" class="mb-3">Rental Plans and Fare</label>
+                                <div class="plan1 col-md-3 form-floating mb-3">
+                                    {{#if getCarData.fareplan.[0].plan1.plan}}
+                                    <input type="text" name="planname1" class="form-control" id="floatingInput" placeholder="Enter Plan Name" value="{{getCarData.fareplan.[0].plan1.plan}}">
+                                    {{else}}
+                                    <input type="text" name="planname1" class="form-control" id="floatingInput" placeholder="Enter Plan Name" value="">
+                                    {{/if}}
+                                    {{!-- <select name="planname1" id="floatingSelect" class="form-select"  aria-label="Floating label select example">
+                                        <option selected>Select Plan</option>
+                                        <option value="Plan1">Plan 1</option>
+                                        <option value="Plan2">Plan 2</option>
+                                        <option value="Plan3">Plan 3</option>
+                                    </select> --}}
+                                    <label for="floatingSelect" class="ms-2">Enter Plan Name</label>
+                                    
+                                </div>
+
+                                <div class="plan2 col-md-3 form-floating mb-3">
+                                     {{#if getCarData.fareplan.[0].plan1.kms}}
+                                    <input type="text"  name="kms1" class="form-control " id="floatingInput"  placeholder="Enter Kms" value="{{getCarData.fareplan.[0].plan1.kms}}">
+                                    {{else}}
+                                    <input type="text"  name="kms1" class="form-control " id="floatingInput"  placeholder="Enter Kms" value="">
+                                    {{/if}}
+                                    <label for="floatingSelect" class="ms-2">Enter Kms</label>
+                                </div>
+                                <div class="plan3 col-md-3 form-floating mb-3">
+                                     {{#if getCarData.fareplan.[0].plan1.fare}}
+                                    <input type="text" name="fare1" class="form-control" id="floatingInput"  placeholder="Enter Fare" value="{{getCarData.fareplan.[0].plan1.fare}}">
+                                    {{else}}
+                                    <input type="text" name="fare1" class="form-control" id="floatingInput"  placeholder="Enter Fare" value="">
+                                    {{/if}}
+                                    <label for="floatingSelect" class="ms-2">Enter Fare</label>
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <div class="fare-box">
+                            <div class="row "  id="row">
+                                
+                                <div class="plan1 col-md-3 form-floating mb-3">
+                                    {{#if getCarData.fareplan.[0].plan2.plan}}
+                                     <input type="text" name="planname2" class="form-control" id="floatingInput" placeholder="Enter Plan Name" value="{{getCarData.fareplan.[0].plan2.plan}}"> 
+                                    {{else}}
+                                    <input type="text" name="planname2" class="form-control" id="floatingInput" placeholder="Enter Plan Name" value=""> 
+                                    {{/if}}
+                                    {{!-- <select name="planname2" id="floatingSelect" class="form-select"  aria-label="Floating label select example">
+                                        <option selected>Select Plan</option>
+                                        <option value="Plan1">Plan 1</option>
+                                        <option value="Plan2">Plan 2</option>
+                                        <option value="Plan3">Plan 3</option>
+                                    </select> --}}
+                                    
+                                    <label for="floatingSelect" class="ms-2">Enter Plan Name</label> 
+                                </div>
+                                <div class="plan2 col-md-3 form-floating mb-3">
+                                     {{#if getCarData.fareplan.[0].plan2.kms}}
+                                    <input type="text"  name="kms2" class="form-control " id="floatingInput"  placeholder="Enter Kms" value="{{getCarData.fareplan.[0].plan2.kms}}">
+                                    {{else}}
+                                    <input type="text"  name="kms2" class="form-control " id="floatingInput"  placeholder="Enter Kms" value="">
+                                    {{/if}}
+                                     <label for="floatingSelect" class="ms-2">Enter Kms</label>
+                                </div>
+                                <div class="plan3 col-md-3 form-floating mb-3">
+                                     {{#if getCarData.fareplan.[0].plan2.fare}}
+                                    <input type="text" name="fare2" class="form-control" id="floatingInput"  placeholder="Enter Fare" value="{{getCarData.fareplan.[0].plan2.fare}}">
+                                    {{else}}
+                                    <input type="text" name="fare2" class="form-control" id="floatingInput"  placeholder="Enter Fare" value="">
+                                    {{/if}}
+                                    <label for="floatingSelect" class="ms-2">Enter Fare</label>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="fare-box">
+                            <div class="row "  id="row">
+                                
+                                <div class="plan1 col-md-3 form-floating mb-3">
+                                     {{#if getCarData.fareplan.[0].plan3.plan}}
+                                    <input type="text" name="planname3" class="form-control" id="floatingInput" placeholder="Enter Plan Name" value="{{getCarData.fareplan.[0].plan3.plan}}">
+                                    {{else}}
+                                    <input type="text" name="planname3" class="form-control" id="floatingInput" placeholder="Enter Plan Name" value="">
+                                    {{/if}}
+                                    {{!-- <select name="planname3" id="floatingSelect" class="form-select"  aria-label="Floating label select example">
+                                        <option selected>Select Plan</option>
+                                        <option value="Plan1">Plan 1</option>
+                                        <option value="Plan2">Plan 2</option>
+                                        <option value="Plan3">Plan 3</option>
+                                    </select> --}}
+                                   <label for="floatingSelect" class="ms-2">Enter Plan Name</label> 
+                                </div>
+                                <div class="plan2 col-md-3 form-floating mb-3">
+                                     {{#if getCarData.fareplan.[0].plan3.kms}}
+                                    <input type="text"  name="kms3" class="form-control " id="floatingInput"  placeholder="Enter Kms" value="{{getCarData.fareplan.[0].plan3.kms}}">
+                                    {{else}}
+                                    <input type="text"  name="kms3" class="form-control " id="floatingInput"  placeholder="Enter Kms" >
+                                    {{/if}}
+                                     <label for="floatingSelect" class="ms-2">Enter Kms</label>
+                                </div>
+                                <div class="plan3 col-md-3 form-floating mb-3">
+                                     {{#if getCarData.fareplan.[0].plan3.fare}}
+                                    <input type="text" name="fare3" class="form-control" id="floatingInput"  placeholder="Enter Fare" value="{{getCarData.fareplan.[0].plan3.kms}}">
+                                    {{else}}
+                                    <input type="text" name="fare3" class="form-control" id="floatingInput"  placeholder="Enter Fare" value="">
+                                    {{/if}}
+                                    <label for="floatingSelect" class="ms-2">Enter Fare</label>
+                                </div>
+                              
+                            </div>
+                        </div>
+                       
+
+
+                            
+                        <label for="" class="mb-3">Extra Kms Charge</label>
+                        <div class="plan1 col-md-3 form-floating mb-3">
+                            <input type="text" name="extrafare" class="form-control" id="floatingInput" placeholder="Extra fare per Km" value="{{getCarData.extrafare}}">
+                            <label for="floatingSelect" class="ms-2">Extra fare per Km</label>
+                        </div> 
+                            
+                        <div class="mb-3">
+                            <input class="form-control" type="file" name="image" id="formFile" onchange="viewImage(event)">
+                            <img src="/images/Cars/{{getCarData.image}}" alt="" style="width: 80px;height: 80px;" class="mb-3 mt-3" id="imgviews" >
+                        </div>
+                        <div class="form-floating mb-3 ">
+                            <input type="number" class="form-control" id="floatingInput" name="deposit" value="{{getCarData.deposit}}"
+                                placeholder="Security Deposit">
+                            <label for="floatingSelect">Security Deposit</label>
+                        </div>
+                        <div class="mb-3 mt-4">
+                            <input class="btn" style="background-color: #FC6414; color: white;" type="submit" 
+                                value="Save">
+                            <input class="btn" style="color: #FC6414; background-color: white;" type="button" 
+                                value="Cancel">
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Form End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-light rounded-top p-4">
+            <div class="row">
+                <div class="col-12 col-sm-6 text-center text-sm-start">
+                    &copy; <a href="#" style="color: #FC6414;">AlexaCars</a> , All Right Reserved.
+                </div>
+                <div class="col-12 col-sm-6 text-center text-sm-end">
+                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                    {{!-- Designed By <a href="https://htmlcodex.com"></a> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    </div>
+    <!-- Content End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+
+
+
+
+
+
+    {{!--=========== Admin view users js Start ============ --}}
+    <!-- Bootstrap core JavaScript-->
+    <script src="/vendor/admin/view-users/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/admin/view-users/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/vendor/admin/view-users/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/javascripts/admin/view-users/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/vendor/admin/view-users/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/admin/view-users/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/javascripts/admin/view-users/js/demo/datatables-demo.js"></script>
+    {{!--=========== Admin view users js End ============ --}}
+
+<script type="text/javascript">
+
+        $("#rowAdder").click(function () {
+            newRowAdd =
+                '<div id="row" class="row"> <div class="plan1 col-md-3 form-floating mb-3">' +
+                '<select name="plans" id="floatingSelect" class="form-select">' +
+                '<option selected>Select Plan</option>' +
+                ' <option value="Plan1">Plan 1</option>' +
+                '<option value="Plan2">Plan 2</option>' +
+                '<option value="Plan3">Plan 3</option>' +
+                '</select>'+
+                '</div>' +
+                '<div class="plan2 col-md-3 form-floating mb-3">' +
+                '<input type="text"  name="kms" class="form-control " id="floatingInput"  placeholder="Enter Kms">' +
+                '<label for="floatingSelect" class="ms-2">Enter Kms</label>' +
+                '</div>' +
+                '<div class="plan3 col-md-3 form-floating mb-3">' +
+                '<input type="text" name="fare" class="form-control" id="floatingInput"  placeholder="Enter Fare">' +
+                '<label for="floatingSelect" class="ms-2">Enter Fare</label>' +
+                '</div>' +
+                '<div class="plus col-md-2">' +
+                '<button class="mt-3" style="border: none;outline: none;" id="DeleteRow">' +
+                '<i class="bi bi-dash" style="width: 40px;height: 40px; color: #FC6414;"></i></button>' +
+                '</div> </div>';
+
+            $('#newinput').append(newRowAdd);
+        });
+
+        $("body").on("click", "#DeleteRow", function () {
+            $(this).parents("#row").remove();
+        })
+
+
+
+
+        
+
+    function viewImage(event) {
+    document.getElementById('imgviews').src = URL.createObjectURL(event.target.files[0])
+  }
+
+
+</script>
+
+
+
+
+</body>
+
+</html>

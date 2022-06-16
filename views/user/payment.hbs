@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card" style="width: auto;">
+                <img src="" alt="">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text"></p>
+                    <p class="card-text"></p>
+                    <a href="" class="btn btn-primary">contact</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <form action="/checkouts" method="post">
+            <script src="https://checkout.stripe.com/checkout.js" 
+                                data-key="pk_test_51L5aZTSGtuoLAEYdkt1gID5Ng2U4WK63RZn3I2MuQvbR2UBOvk5PSYP9E2Cz2MaYdoAQHuy8lnhSdevLXXJtsIZj00ZegJ7cqM" class="stripe-button" 
+                                data-amount="1000"
+                                data-currency="INR"
+                                data-name="Alexa Cars" data-description="1000 for renting a abc"></script>
+                {{!-- <label for="total">total fare is :</label> --}}
+                <div class="form-group">
+                    <label for="fare">Total is 1000</label>
+                    {{!-- <button type="submit" class="form-control btn btn-danger">Pay Now</button> --}}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
