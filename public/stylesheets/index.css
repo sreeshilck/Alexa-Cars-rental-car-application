@@ -30,16 +30,6 @@ body
     
 }    
  
-@media only screen and (min-width: 768px){
-    /* .hero-container{
-        height: 650px;
-
-    } */
-    /* .location-icon{
-        top: 10px;
-        left: 5px;
-    } */
-} 
 
 .finder
 {
@@ -52,14 +42,9 @@ body
     margin-top: 80px;
     height: 450px;
 }
- 
+
  @media (max-width: 768px){
-/*.finder {
-     -webkit-box-flex: 0;
-    -ms-flex: 0 0 33.33333%;
-    flex: 0 0 33.33333%;
-    max-width: 33.33333%; 
-}*/
+
 
 .hero-container .info{
 visibility: hidden;

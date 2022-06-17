@@ -88,7 +88,6 @@ userRouter.post('/user/rentacar-now', userController.getSearchResults);
 // GET user home page
 userRouter.get('/user/user-home', userController.getUserhomePage);
 // post search
-
 userRouter.post('/user/search', userController.getSearchDetails);
 //GET booking summary
 userRouter.get('/user/booking-summary', Auth.userAuth, userController.getBookingSummaryPage);
@@ -153,7 +152,7 @@ userRouter.post('/user/location',async (req,res)=>{
 //GET booking 
 userRouter.post('/user/bookcar', userController.getBooking);
 
-
+// verify payment 
 userRouter.post('/user/verify-payment',(req,res)=>{
    
     userController.verifyPayment(req.body).then(()=>{

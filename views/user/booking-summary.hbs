@@ -11,6 +11,7 @@
     <style>
         *:focus {
             outline: none !important;
+            color: black !important;
         }
 
         .cardiv {
@@ -309,6 +310,20 @@
             color: inherit;
         }
 
+
+        @media (max-width: 768px) {
+
+
+            .info {
+
+                display: none;
+            }
+            .booking-header{
+                display: none;
+            }
+        }
+
+
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -326,13 +341,13 @@
     <div class="container">
 
         <div class="row outer-row mt-5 pt-5 ">
-            <div class="cardiv col-md-7   ">
-                <div class="carcontainer p-5"
+            <div class="cardiv col-md-7 px-4  ">
+                <div class="carcontainer p-4 pt-5  "
                     style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 15px;">
                     <div class="row " style="border-radius: 15px">
                         <div class="col-md-6 " style="border-radius: 15px;">
                             <h5 style="color: #FC6414;">{{selectedCarData.modelname}}</h5>
-                            <img src="/images/Cars/{{selectedCarData.image}}" style="width:80%;height: 70%;" alt="">
+                            <img src="/images/Cars/{{selectedCarData.image}}" style="width:80%;height: 70%;" alt="" class="mt-3">
                             <div class="div p-1 "
                                 style="width: 100%; display: flex; align-items: center; justify-content: space-evenly;">
                                 <img src="/images/icons8-transmission- color (3).png" style="width: 28px;height: 28px;"
@@ -346,7 +361,7 @@
                             </div>
                         </div>
                         <div class="booking col-md-6 text-center" style="border-radius: 15px;">
-                            <h6> BOOKING DETAILS </h6>
+                            <h6 class="booking-header"> BOOKING DETAILS </h6>
                             <h3 class="mt-5" id="startdate">{{startdate}}</h3>
                             {{!-- <input type="datetime-local" value="{{selecteddateData.startdate}}"
                                 style="border: none;outline: none;display: block;"> --}}
@@ -361,7 +376,7 @@
                 </div>
 
                 {{!-- disclaimer start --}}
-                <div class="mt-5 p-5  text-center"
+                <div class="mt-5 p-5  text-center info"
                     style="width: 100%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 15px;">
                     <h6>IMPORTANT POINTS TO REMEMBER</h6>
                     <div class="idinfo d-flex mt-5">
@@ -395,282 +410,292 @@
 
 
 
-            <div class="farebox col-md-4  p-5 "
-                style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 15px;height: fit-content;">
-                <h6 class="text-center">FARE DETAILS</h6>
-
-                <div class="div d-flex mt-5">
-                    <p>Base Fare</p>
-                    <p class="ms-auto fs-5">&#x20b9; {{selectedCarFare}}</p>
-                </div>
-                <div class="div d-flex mt-3">
-                    <p class="">Doorstep Delivery and Pickup</p>
-                    <p class="ms-auto">Free</p>
-                </div>
-                <div class="div d-flex mt-3">
-                    <p>Insurance &#38; GST</p>
-                    <p class="ms-auto">Included</p>
-                </div>
-                <div class="div d-flex mt-3">
-                    <p>Refundable Secuirity Deposit</p>
-                    <p class="ms-auto">&#x20b9; {{selectedCarData.deposit}}</p>
-                </div>
+            <div class="farebox col-md-4 px-4 ">
+                <div class="carcontainer p-4 "
+                    style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 15px;">
 
 
-                {{!-- Coupon start --}}
+                    <h6 class="text-center">FARE DETAILS</h6>
 
-                <div class="div d-flex mt-3 ">
-                    <form action="" method="post" id="coupon-form" class="d-flex">
-                        <input type="text" name="couponcode" id="couponbox" placeholder="Enter Coupon Code">
-                        <input type="text" name="carId" id="" placeholder="" value="{{selectedCarData._id}}" hidden>
-
-                        <button class="couponbtn ms-5" style="margin-left: 90px; " type="submit">Apply</button>
-
-                    </form>
-                </div>
-                <p class="mt-3 text-danger" id="couponErr"></p>
-                {{!-- Coupon end --}}
-                <div class="div d-flex  mt-5 " style="border-top: 1px solid #FC6414;">
-                    <p class="my-auto">Total</p>
-                    <p class="ms-auto mt-3 fs-5" style="color: #FC6414;">&#x20b9; {{totalfare}}</p>
-                </div>
-
-                <div class="div d-flex" style="" id="">
-                    <p id="discount"></p>
-
-                    <h5 class="ms-auto" id="discountValue"></h5>
-                </div>
-                <div class="div d-flex" style="border-bottom: 1px solid #FC6414;">
-                    <p id="finalfare" class="bg-primary"></p>
-                    <h3 id="finalfareValue" class="ms-auto mt-2 " style="color: #FC6414 !important;"></h3>
-                </div>
-
-
-                <div class="div d-flex mt-5">
-                    <p>Kms limit</p>
-                    <p class="ms-auto">{{selectedCarKms}} Kms</p>
-                </div>
-                <div class="div d-flex mt-3">
-                    <p>Extra Kms charge</p>
-                    <p class="ms-auto">&#x20b9; {{selectedCarData.extrafare}}/Km</p>
-                </div>
-                <div class="div d-flex mt-3">
-                    <p>Tolls,Parking &#38; State tax </p>
-                    <p class="ms-auto">To be paid by you</p>
-                </div>
-
-                <form action="" method="post" id="location-form">
-                    <div class="location-box mt-3">
-
-                        <input type="text" class="form-control" name="pickuplocation" id="pickup-location"
-                            placeholder="Pick-up location" style="outline: none !important;outline-width: 0;">
-                        {{!-- <img src="/images/icons8-location.gif" alt="" style="width:24px;height:24px;"
-                            class="location-icon"> --}}
+                    <div class="div d-flex mt-5">
+                        <p>Base Fare</p>
+                        <p class="ms-auto fs-5">&#x20b9; {{selectedCarFare}}</p>
                     </div>
-                    <div class="location-box mt-3">
-
-                        <input type="text" class="form-control" name="dropofflocation" id="dropoff-location"
-                            placeholder="Drop off location">
+                    <div class="div d-flex mt-3">
+                        <p class="">Doorstep Delivery and Pickup</p>
+                        <p class="ms-auto">Free</p>
                     </div>
+                    <div class="div d-flex mt-3">
+                        <p>Insurance &#38; GST</p>
+                        <p class="ms-auto">Included</p>
+                    </div>
+                    <div class="div d-flex mt-3">
+                        <p>Refundable Secuirity Deposit</p>
+                        <p class="ms-auto">&#x20b9; {{selectedCarData.deposit}}</p>
+                    </div>
+
+
+                    {{!-- Coupon start --}}
+
+                    <div class="div d-flex mt-3 ">
+                        <form action="" method="post" id="coupon-form" class="d-flex">
+                            <input type="text" name="couponcode" id="couponbox" placeholder="Enter Coupon Code">
+                            <input type="text" name="carId" id="" placeholder="" value="{{selectedCarData._id}}" hidden>
+
+                            <button class="couponbtn ms-5" style="margin-left: 90px; " type="submit">Apply</button>
+
+                        </form>
+                    </div>
+                    <p class="mt-3 text-danger" id="couponErr"></p>
+                    {{!-- Coupon end --}}
+                    <div class="div d-flex  mt-5 " style="border-top: 1px solid #FC6414;">
+                        <p class="my-auto">Total</p>
+                        <p class="ms-auto mt-3 fs-5" style="color: #FC6414;">&#x20b9; {{totalfare}}</p>
+                    </div>
+
+                    <div class="div d-flex" style="" id="">
+                        <p id="discount"></p>
+
+                        <h5 class="ms-auto" id="discountValue"></h5>
+                    </div>
+                    <div class="div d-flex" style="border-bottom: 1px solid #FC6414;">
+                        <p id="finalfare" class=""></p>
+                        <h3 id="finalfareValue" class="ms-auto mt-2 " style="color: #FC6414 !important;"></h3>
+                    </div>
+
+
+                    <div class="div d-flex mt-5">
+                        <p>Kms limit</p>
+                        <p class="ms-auto">{{selectedCarKms}} Kms</p>
+                    </div>
+                    <div class="div d-flex mt-3">
+                        <p>Extra Kms charge</p>
+                        <p class="ms-auto">&#x20b9; {{selectedCarData.extrafare}}/Km</p>
+                    </div>
+                    <div class="div d-flex mt-3">
+                        <p>Tolls,Parking &#38; State tax </p>
+                        <p class="ms-auto">To be paid by you</p>
+                    </div>
+
+                    <form action="" method="post" id="location-form">
+                        <div class="location-box mt-3">
+
+                            <input type="text" class="form-control" name="pickuplocation" id="pickup-location"
+                                placeholder="Pick-up location" style="outline: none !important;outline-width: 0;">
+                            {{!-- <img src="/images/icons8-location.gif" alt="" style="width:24px;height:24px;"
+                                class="location-icon"> --}}
+                        </div>
+                        <div class="location-box mt-3">
+
+                            <input type="text" class="form-control" name="dropofflocation" id="dropoff-location"
+                                placeholder="Drop off location">
+                        </div>
 
                         <p style="color: red;" class="mt-3" id="placeErr"></p>
-                    <div class="div mt-4 d-flex flex-column  text center  align-items-center">
-                        <button
-                            style="background-color: #FC6414;color: white; padding: 7px; border: none; outline: none; width: 170px;height: 37px;border-radius: 15px;font-weight: 600;"
-                            data-bs-toggle="modal" data-bs-target="#myModa" type="submit">PAY</button>
+                        <div class="div mt-4 d-flex flex-column  text center  align-items-center">
+                            <button
+                                style="background-color: #FC6414;color: white; padding: 7px; border: none; outline: none; width: 170px;height: 37px;border-radius: 15px;font-weight: 600;"
+                                data-bs-toggle="modal" data-bs-target="#myModa" type="submit">PAY</button>
+                        </div>
+
+                    </form>
                     </div>
-
-                </form>
-            </div>
+                </div>
 
 
 
-            {{!-- modal start --}}
+                {{!-- modal start --}}
+
+<div class="container">
+                <div class="modal-box">
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content clearfix " id="">
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">×</span></button>
+                                <div class="modal-body">
+                                    {{#if bookedUser}}
+                                        
+                                    <form action="" method="post" id="id-form">
+                                        <h3 class="title">Eligibility & ID </h3>
+                                        <p class="description">To make a booking:</p>
+                                        <p class="description1">You must be at least 21 years old </p>
+                                        <p class="description2">Your Driving License for “Light Motor Vehicles ” must be
+                                            at
+                                            least 1 year old </p>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control basicDate"
+                                                placeholder="Enter Date of Birth" name="dob" value="{{dob}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <!-- <input type="" class="form-control" placeholder="Select ID Proof"> -->
+                                            <select name="idcard" id="" class="id-control">
+                                                <option value="{{bookedUser.idCard}}" selected>{{bookedUser.idCard}}
+                                                </option>
+                                                <option value="Aadhar">Aadhar</option>
+                                                <option value="Passport">Passport</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+
+                                            <input type="number" class="form-control" placeholder="Enter ID Card No"
+                                                name="idnumber" value="{{bookedUser.idCardNo}}">
+                                        </div>
+                                        <div class="form-group">
+
+                                            <input type="text" class="form-control"
+                                                placeholder="Enter Driving License NO" name="licensenumber"
+                                                value="{{bookedUser.drivingLicenceNo}}">
+                                        </div>
+
+                                        <input type="text" name="User_id" value="{{User_id}}" hidden>
+                                        <input type="text" name="Car_id" value="{{selectedCarData._id}}" hidden>
+
+                                        <button class="btn" type="submit">Procced</button>
+                                    </form>
+                                    {{else}}
+                                    <form action="" method="post" id="id-form">
+                                        <h3 class="title">Eligibility & ID </h3>
+                                        <p class="description">To make a booking:</p>
+                                        <p class="description1">You must be at least 21 years old </p>
+                                        <p class="description2">Your Driving License for “Light Motor Vehicles ” must be
+                                            at
+                                            least 1 year old </p>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control basicDate"
+                                                placeholder="Date of Birth" name="dob" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <!-- <input type="" class="form-control" placeholder="Select ID Proof"> -->
+                                            <select name="idcard" id="" class="id-control" >
+                                                <option value="" disabled selected>Select ID Card
+                                                </option>
+                                                <option value="Aadhar">Aadhar</option>
+                                                <option value="Passport">Passport</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+
+                                            <input type="number" class="form-control" placeholder="Enter ID Card No"
+                                                name="idnumber" value="">
+                                        </div>
+                                        <div class="form-group">
+
+                                            <input type="text" class="form-control"
+                                                placeholder="Enter Driving License NO" name="licensenumber" value="">
+                                        </div>
+
+                                        <input type="text" name="User_id" value="{{User_id}}" hidden>
+                                        <input type="text" name="Car_id" value="" hidden>
+
+                                        <button class="btn" type="submit">Procced</button>
+                                    </form>
 
 
-            <div class="modal-box">
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content clearfix " id="">
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">×</span></button>
-                            <div class="modal-body">
-                                {{#if bookedUser}}
-                                <form action="" method="post" id="id-form">
-                                    <h3 class="title">Eligibility & ID </h3>
-                                    <p class="description">To make a booking:</p>
-                                    <p class="description1">You must be at least 21 years old </p>
-                                    <p class="description2">Your Driving License for “Light Motor Vehicles ” must be at
-                                        least 1 year old </p>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control basicDate" placeholder="Enter Date of Birth"
-                                            name="dob" value="{{dob}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <!-- <input type="" class="form-control" placeholder="Select ID Proof"> -->
-                                        <select name="idcard" id="" class="id-control">
-                                            <option value="{{bookedUser.idcard}}"  selected>{{bookedUser.idcard}}
-                                            </option>
-                                            <option value="Aadhar Card" >Aadhar Card</option>
-                                            <option value="Passport">Passport</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-
-                                        <input type="number" class="form-control" placeholder="Enter ID Card No"
-                                            name="idnumber" value="{{bookedUser.idCardNo}}">
-                                    </div>
-                                    <div class="form-group">
-
-                                        <input type="text" class="form-control" placeholder="Enter Driving License NO"
-                                            name="licensenumber" value="{{bookedUser.drivingLicenceNo}}">
-                                    </div>
-
-                                    <input type="text" name="User_id" value="{{User_id}}" hidden>
-                                    <input type="text" name="Car_id" value="{{selectedCarData._id}}" hidden>
-
-                                    <button class="btn" type="submit">Procced</button>
-                                </form>
-                                {{else}}
-                                <form action="" method="post" id="id-form">
-                                    <h3 class="title">Eligibility & ID </h3>
-                                    <p class="description">To make a booking:</p>
-                                    <p class="description1">You must be at least 21 years old </p>
-                                    <p class="description2">Your Driving License for “Light Motor Vehicles ” must be at
-                                        least 1 year old </p>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control basicDate" placeholder="Enter Date of Birth"
-                                            name="dob" value="">
-                                    </div>
-                                    <div class="form-group">
-                                        <!-- <input type="" class="form-control" placeholder="Select ID Proof"> -->
-                                        <select name="idcard" id="" class="id-control">
-                                            <option value="" disabled selected>Select ID Card
-                                            </option>
-                                            <option value="Aadhar Card" >Aadhar Card</option>
-                                            <option value="Passport">Passport</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-
-                                        <input type="number" class="form-control" placeholder="Enter ID Card No"
-                                            name="idnumber" value="">
-                                    </div>
-                                    <div class="form-group">
-
-                                        <input type="text" class="form-control" placeholder="Enter Driving License NO"
-                                            name="licensenumber" value="">
-                                    </div>
-
-                                    <input type="text" name="User_id" value="{{User_id}}" hidden>
-                                    <input type="text" name="Car_id" value="" hidden>
-
-                                    <button class="btn" type="submit">Procced</button>
-                                </form>
-
-
-                                {{/if}}
+                                    {{/if}}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+</div>
+                {{!-- modal end --}}
+
+
+
+
             </div>
-
-            {{!-- modal end --}}
-
-
-
 
         </div>
 
-    </div>
 
+        <div class="footer mt-5" style="width: 100%;height: 100px;background-color: white;"></div>
 
-    <div class="footer mt-5" style="width: 100%;height: 500px;background-color: aqua;"></div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-    <script src="/lib/moment.js"></script>
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+        <script src="/lib/moment.js"></script>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 
 
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
-    <script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+        <script>
 
 
 
-        $(".basicDate").flatpickr({
-            enableTime: true,
-            dateFormat: "F, d Y ",
-            minDate: "today",
-            maxDate: new Date().fp_incr(30),
-            disableMobile: "true"
-        });
+            $(".basicDate").flatpickr({
+                enableTime: true,
+                dateFormat: "F, d Y ",
+                minDate: "today",
+                maxDate: new Date().fp_incr(30),
+                disableMobile: "true"
+            });
 
-    </script>
+        </script>
 
 
 
 
 
-    <script>
+        <script>
 
 
 
 
-        // id form jquerry validation
+            // id form jquerry validation
 
-        $(document).ready(function () {
-            $("#id-form").validate({
-                errorClass: "Errors",
-                rules: {
-                    dob: {
-                        required: true,
+            $(document).ready(function () {
+                $("#id-form").validate({
+                    errorClass: "Errors",
+                    rules: {
+                        dob: {
+                            required: true,
 
-                    },
-                    idcard: {
-                        required: true,
+                        },
+                        idcard: {
+                            required: true,
 
-                    },
-                    idnumber: {
-                        required: true,
-                        minlength: 12,
-                        maxlength: 12,
+                        },
+                        idnumber: {
+                            required: true,
+                            minlength: 12,
+                            maxlength: 12,
 
-                    },
+                        },
 
-                    licensenumber: {
-                        required: true,
-                        //minlength: 6,
-                        //strongePassword:true
+                        licensenumber: {
+                            required: true,
+                            //minlength: 6,
+                           
 
-                    },
-
-                },
-                messages: {
-                    dob: {
-                        required: "Please enter your name",
+                        },
 
                     },
+                    messages: {
+                        dob: {
+                            required: "Please enter your name",
 
-                    idcard: {
-                        required: "Please enter your id",
+                        },
 
-                    },
+                        idcard: {
+                            required: "Please enter your id",
 
-                    idnumber: {
-                        required: "Please enter your id card number",
+                        },
 
+                        idnumber: {
+                            required: "Please enter your id card number",
+
+                        }
                     }
-                }
+                })
+
+
             })
 
 
-        })
 
 
 
@@ -689,164 +714,162 @@
 
 
 
+            //===============coupon verify start  ====================
 
+            $("#coupon-form").submit((e) => {
+                e.preventDefault()
+                $.ajax({
+                    url: '/user/coupon-verify',
+                    method: 'post',
+                    data: $('#coupon-form').serialize(),
+                    success: (response) => {
+                        document.getElementById('couponErr').innerHTML = "";
+                        if (response) {
 
-        //===============coupon verify start  ====================
+                            let getDiscountValue = '';
+                            let getDiscountAmount = '';
 
-        $("#coupon-form").submit((e) => {
-            e.preventDefault()
-            $.ajax({
-                url: '/user/coupon-verify',
-                method: 'post',
-                data: $('#coupon-form').serialize(),
-                success: (response) => {
-                    document.getElementById('couponErr').innerHTML = "";
-                    if (response) {
+                            getDiscountAmount = `<h5>${response.discount}</h5>`;
+                            getDiscountValue = `<h3>${response.finalFare}</h3>`;
 
-                        let getDiscountValue = '';
-                        let getDiscountAmount = '';
+                            document.getElementById('discount').innerHTML = "Coupon Discount";
+                            document.getElementById('discountValue').innerHTML = getDiscountAmount;
+                            document.getElementById('finalfare').innerHTML = "Grand total";
+                            document.getElementById('finalfareValue').innerHTML = getDiscountValue;
+                        } else {
+                            document.getElementById('couponErr').innerHTML = "Entered Coupon Is Invalid";
+                            // alert("failed response")
 
-                        getDiscountAmount = `<h5>${response.discount}</h5>`;
-                        getDiscountValue = `<h3>${response.finalFare}</h3>`;
-
-                        document.getElementById('discount').innerHTML = "Coupon Discount";
-                        document.getElementById('discountValue').innerHTML = getDiscountAmount;
-                        document.getElementById('finalfare').innerHTML = "Grand total";
-                        document.getElementById('finalfareValue').innerHTML = getDiscountValue;
-                    } else {
-                        document.getElementById('couponErr').innerHTML = "Entered Coupon Is Invalid";
-                        // alert("failed response")
+                        }
 
                     }
+                })
 
-                }
             })
-
-        })
-        //===============coupon verify end  ====================
+            //===============coupon verify end  ====================
 
 
 
 
-        $("#location-form").submit((e) => {
-            e.preventDefault()
-            $.ajax({
-                url: '/user/location',
-                method: 'post',
-                data: $('#location-form').serialize(),
-                success: (response) => {
+            $("#location-form").submit((e) => {
+                e.preventDefault()
+                $.ajax({
+                    url: '/user/location',
+                    method: 'post',
+                    data: $('#location-form').serialize(),
+                    success: (response) => {
 
 
 
 
-                    if (response == true) {
-                        $("#myModal").modal('show');
+                        if (response == true) {
+                            $("#myModal").modal('show');
 
-                    } else {
+                        } else {
 
-                        $("#myModal").modal('hide');
-                        document.getElementById('placeErr').innerHTML = "Enter Pickup and dropoff location";
+                            $("#myModal").modal('hide');
+                            document.getElementById('placeErr').innerHTML = "Enter Pickup and dropoff location";
+                        }
+
                     }
+                })
 
-                }
             })
 
-        })
 
 
 
 
+            /*Razor pay payment start*/
 
-        /*Razor pay payment start*/
+            $("#id-form").submit((e) => {
+                e.preventDefault()
+                $.ajax({
+                    async: false,
+                    url: '/user/bookcar',
+                    method: 'post',
+                    data: $('#id-form').serialize(),
+                    success: (response) => {
 
-        $("#id-form").submit((e) => {
-            e.preventDefault()
-            $.ajax({
-                async: false,
-                url: '/user/bookcar',
-                method: 'post',
-                data: $('#id-form').serialize(),
-                success: (response) => {
+                        if (response) {
+                            // alert("Sucessfully Completed")
 
-                    if (response) {
-                        // alert("Sucessfully Completed")
+                            razorpayPay(response)
+                            $("#myModal").modal('hide');
+                        } else {
+                            console.log("error occured")
+                        }
 
-                        razorpayPay(response)
-                        $("#myModal").modal('hide');
-                    } else {
-                        console.log("error occured")
                     }
+                })
 
-                }
             })
 
-        })
 
 
+            function razorpayPay(order) {
 
-        function razorpayPay(order) {
-
-            var options = {
-                "key": "rzp_test_qs7eMqSgdS6hr3", // Enter the Key ID generated from the Dashboard
-                "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-                "currency": "INR",
-                "name": "Alexa Cars ",
-                "description": "Rental Car Booking",
-                "image": "https://example.com/your_logo",
-                "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-                "handler": function (response) {
-                    // alert(response.razorpay_payment_id);
-                    // alert(response.razorpay_order_id);
-                    //alert(response.razorpay_signature);
-
-
-                    verifyPayment(response, order)
+                var options = {
+                    "key": "rzp_test_qs7eMqSgdS6hr3", // Enter the Key ID generated from the Dashboard
+                    "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                    "currency": "INR",
+                    "name": "Alexa Cars ",
+                    "description": "Rental Car Booking",
+                    "image": "https://example.com/your_logo",
+                    "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                    "handler": function (response) {
+                        // alert(response.razorpay_payment_id);
+                        // alert(response.razorpay_order_id);
+                        //alert(response.razorpay_signature);
 
 
-                },
-                "prefill": {
-                    "name": "Alexa Cars",
-                    "email": "alexacars24@gmail.com",
-                    "contact": "1234567890"
-                },
-                "notes": {
-                    "address": "Razorpay Corporate Office"
-                },
-                "theme": {
-                    "color": "#FC6414"
-                }
-            };
-
-            var rzp1 = new Razorpay(options);
-            rzp1.open();
+                        verifyPayment(response, order)
 
 
-        }
-
-
-        function verifyPayment(payment, order) {
-
-            $.ajax({
-                url: '/user/verify-payment',
-                data: {
-                    payment,
-                    order
-                },
-                method: 'post',
-                success: (response) => {
-
-                    if (response.status) {
-
-                        location.href = '/user/order-success'
-                    } else {
-                        alert("payment failed")
+                    },
+                    "prefill": {
+                        "name": "Alexa Cars",
+                        "email": "alexacars24@gmail.com",
+                        "contact": "1234567890"
+                    },
+                    "notes": {
+                        "address": "Razorpay Corporate Office"
+                    },
+                    "theme": {
+                        "color": "#FC6414"
                     }
-                }
-            })
-        }
+                };
+
+                var rzp1 = new Razorpay(options);
+                rzp1.open();
 
 
-        /*Razor pay payment end*/
+            }
+
+
+            function verifyPayment(payment, order) {
+
+                $.ajax({
+                    url: '/user/verify-payment',
+                    data: {
+                        payment,
+                        order
+                    },
+                    method: 'post',
+                    success: (response) => {
+
+                        if (response.status) {
+
+                            location.href = '/user/order-success'
+                        } else {
+                            alert("payment failed")
+                        }
+                    }
+                })
+            }
+
+
+            /*Razor pay payment end*/
 
 
 
@@ -857,7 +880,7 @@
 
 
 
-    </script>
+        </script>
 
 
 

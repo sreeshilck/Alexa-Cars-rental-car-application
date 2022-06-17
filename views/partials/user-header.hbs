@@ -1,9 +1,4 @@
 
-
-
-
-
-
 {{!--============= Stylesheet ============--}}
 <style>
   .signinbtn {
@@ -91,7 +86,8 @@
 
 
 {{!--============ Bootstrap Modal Start ===========--}}
-<section>
+
+  <div class="container">
   {{#if logginError}}
   <div class="modal fade" id="ModalForm" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
     data-bs-keyboard="false">
@@ -99,7 +95,7 @@
       <div class="modal-content" style="border-radius: 15px;">
         <!--====== Login Form ========-->
         <div class="modal-header" style="background-color: #FC6414; color: white; border-radius: 15px 15px 0 0;">
-          <h5 class="modal-title">Sign In </h5>
+          <h5 class="modal-title" style="color:white">Sign In </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="/user/user-login" method="post" id="login-form">
@@ -114,7 +110,7 @@
                   <!--====== Login Form ========-->
                   <div class="modal-header"
                     style="background-color: #FC6414; color: white; border-radius: 15px 15px 0 0;">
-                    <h5 class="modal-title">Sign In </h5>
+                    <h5 class="modal-title " style="color:white">Sign In </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <form action="/user/user-login" method="post" id="login-form">
@@ -128,7 +124,7 @@
                             <!--====== Login Form ========-->
                             <div class="modal-header"
                               style="background-color: #FC6414; color: white; border-radius: 15px 15px 0 0;">
-                              <h5 class="modal-title">Sign In </h5>
+                              <h5 class="modal-title" style="color:white">Sign In </h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                             </div>
@@ -139,14 +135,14 @@
                                 <div class="mb-3">
                                   <label for="Username">Email<span class="text-danger">*</span></label>
                                   <input type="text" name="email" class="form-control" id="email"
-                                    placeholder="Enter Email" value="sreeshilck777@gmail.com">
+                                    placeholder="Enter Email" value="">
                                    
                                 </div>
 
                                 <div class="mb-3">
                                   <label for="Password">Password<span class="text-danger">*</span></label>
                                   <input type="password" name="password" class="form-control" id="Password"
-                                    placeholder="Enter Password" value="123">
+                                    placeholder="Enter Password" value="">
                                     
                                 </div>
 
@@ -170,8 +166,8 @@
                       </div>
                       {{!--========== Bootstrap Modal End ============--}}
 
+</div>
 
-</section>
 
 
 

@@ -11,12 +11,11 @@ const randomString = require("randomstring")
 const Razorpay = require("razorpay");
 const { response } = require('../routes/user');
 const { resolve } = require('node:path');
-const moment = require('moment'); // require
+const moment = require('moment'); 
 
 
 
 
-//const  stripe = require('stripe')(process.env.StripeSecretKey)
 const instance = new Razorpay({
     key_id: process.env.RazorPayKeyId,
     key_secret: process.env.RazorPaySecretKey,
@@ -48,7 +47,8 @@ const getSignupPage = async (req, res) => {
         if (req.session.user) {
             res.redirect("/user/user-home")
         } else {
-            res.render('user/user-signup', { layout: false })
+            res.render('user/user-signup', { layout: false , userExist:req.session.userExist })
+            req.session.userExist = false
         }
 
     } catch (error) {
@@ -63,33 +63,48 @@ const getSignupPage = async (req, res) => {
 const insertUser = async (req, res) => {
 
     try {
-
-        const spassword = await securePassword(req.body.password);
-        const user = ({
-            name: req.body.name,
-            email: req.body.email,
-            password: spassword,
-            phonenumber: req.body.phonenumber
-        });
-
-        req.session.userDetials = user
-
-        const otpGenerator = await Math.floor(1000 + Math.random() * 9000);
-
-        req.session.OTP = otpGenerator;
-
-        if (user) {
-            sendVerifyMail(req.body.name, req.body.email, otpGenerator)
-            let StartTime = new Date()
-            req.session.otpsentTime = moment(StartTime, 'YYYY-M-DD HH:mm:ss')
-
-
-            res.redirect('/user/user-verify');
-
+        let useremail = req.body.email
+    
+        let ifExist = await userModel.find({email:useremail})
+        
+        if(ifExist != "") {
+            req.session.userExist = "Email already exists"
+            res.redirect("/user/user-signup")
         } else {
-            res.redirect('/user/user-signup');
+
+        
+
+
+            const spassword = await securePassword(req.body.password);
+            const user = ({
+                name: req.body.name,
+                email: req.body.email,
+                password: spassword,
+                phonenumber: req.body.phonenumber
+            });
+    
+            req.session.userDetials = user
+    
+            const otpGenerator = await Math.floor(1000 + Math.random() * 9000);
+    
+            req.session.OTP = otpGenerator;
+    
+            if (user) {
+                sendVerifyMail(req.body.name, req.body.email, otpGenerator)
+                let StartTime = new Date()
+                req.session.otpsentTime = moment(StartTime, 'YYYY-M-DD HH:mm:ss')
+    
+    
+                res.redirect('/user/user-verify');
+    
+            } else {
+                res.redirect('/user/user-signup');
+    
+            }
+    
 
         }
+
 
     } catch (error) {
         console.log(error.message);
@@ -178,11 +193,7 @@ const VerifyOTP = async (req, res) => {
     let otpCheckTime = new Date()
     let endTime = moment(otpCheckTime, 'YYYY-M-DD HH:mm:ss')
 
-
     var secondsDiff = endTime.diff(req.session.otpsentTime, 'seconds')
-
-    console.log(secondsDiff, "========secondsDiff")
-
     try {
         if (secondsDiff <= 180) {
 
@@ -242,6 +253,7 @@ const resendOtp = async (req, res) => {
 // get user home page
 const getUserhomePage = async (req, res) => {
     let userdateData = req.session.dateData
+    console.log(userdateData);
     let userValue = req.session.user
     let allCarData = await carModel.find({ isAvailable: { $ne: "false" } }).lean()
 
@@ -363,7 +375,7 @@ const sendPasswordResetMail = async (name, email, tocken) => {
             to: email,
             subject: "Reset Password",
             text: "just random texts ",
-            html: '<p>Hi ' + name + ' click <a href ="http://localhost:3000/user/reset-password?tocken=' + tocken + '"> here to </a> to reset your password</p>'
+            html: '<p>Hi ' + name + ' click <a href ="https://alexacars.ml/user/reset-password?tocken=' + tocken + '"> here to </a> to reset your password</p>'
         }
         mailTransporter.sendMail(mailDetails, (err, Info) => {
             if (err) {
@@ -430,6 +442,8 @@ const getBookingSummaryPage = async (req, res) => {
         const User_id = req.session.user._id
 
         let selecteddateData = req.session.dateData
+
+        console.log(selecteddateData,"---selecteddateData");
         let selectedCarId = req.query.id
         let selectedCarPlan = req.query.plan
 
@@ -438,7 +452,7 @@ const getBookingSummaryPage = async (req, res) => {
 
         let bookCarData = await carModel.findById(selectedCarId).lean()
         let bookedUser = await userModel.findById(User_id).lean()
-console.log(bookedUser,"----bookedUser");
+
 
         if (selectedCarPlan == bookCarData.fareplan[0].plan1.plan) {
 
@@ -481,6 +495,7 @@ console.log(bookedUser,"----bookedUser");
 
 
         let dob = moment(bookedUser.dateofbirth).format('L');
+        console.log(bookedUser.idCard,"====bokdsjl");
         res.render("user/booking-summary", {
             selectedCarData, selectedCarFare, selectedCarKms, userValue, selecteddateData, days, totalfare, startdate, enddate,
             User_id,bookedUser, dob
@@ -527,8 +542,7 @@ const verifyCoupon = async (req, res) => {
 
                     } else {
                         req.session.totalfare = req.session.totalfare - isCouponActive.discount
-                        console.log(req.session.totalfare, "========final req.session.totalfare");
-
+                        
                         await couponModel.updateOne(
                             { couponCode: coupon },
                             { $push: { usedUsers: user._id } }
@@ -551,19 +565,12 @@ const verifyCoupon = async (req, res) => {
     
                     res.json({ finalFare, discount })
 
-
-
                 }
                 let status = false
                 res.send(status)
                 console.log("Coupon Used");
 
-                
-
             }
-
-
-
 
         } else {
             let status = false
@@ -572,15 +579,10 @@ const verifyCoupon = async (req, res) => {
         }
 
 
-
     } catch (error) {
         console.log(error);
     }
 }
-
-
-
-
 
 
 // user id submit
@@ -611,9 +613,8 @@ const userIdSubmit = async (req, res) => {
 const getSearchResults = async (req, res) => {
 
     try {
-        console.log(req.body, "=====req.body");
+        
         let searchData = req.body
-
 
         const forserchData = await carModel.find({}).lean()
 
@@ -651,27 +652,6 @@ const getCheckOutPage = async (req, res) => {
         console.log(error);
     }
 }
-
-
-
-
-
-
-
-
-// user logout
-const getUserLogout = async (req, res) => {
-
-    try {
-        req.session.user = null
-        req.session.userLoggedIn = false
-        res.redirect("/")
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-
 
 
 
@@ -811,14 +791,10 @@ const getOrderHistory = async (req, res) => {
         let userBookedDataCount = await bookingModel.find({ userId: userValue._id }).count()
         let userBookedData = await bookingModel.find({ userId: userValue._id }).lean()
 
-
-
         userBookedData.forEach(element => {
             element.date = moment(element.date).format('LLLL');
             });
     
-
-        
         res.render("user/billing-order-history", { userValue, userBookedDataCount, userBookedData })
     } catch (error) {
         console.log(error);
@@ -965,8 +941,8 @@ const getUserIddetails = async (req, res) => {
 
         let userProfileData = await userModel.findById(userValueId).lean()
 
-
-        res.render("user/id-details", { userValue, userProfileData, profileupdatedmsg: req.session.profileupdated })
+        let userDob = moment(userProfileData.dateofbirth).format('L');
+        res.render("user/id-details", { userValue, userProfileData, profileupdatedmsg: req.session.profileupdated,userDob })
         req.session.profileupdated = false;
     } catch (error) {
         console.log(error);
@@ -1004,9 +980,7 @@ const getAboutPage = async (req, res) => {
 const filterSubmit = async (req, res) => {
     try {
 
-        console.log(req.params.id, "====new params id");
-        console.log(req.body, "====new body");
-
+        
         let filteredData = await carModel.find({})
         res.send("success")
     } catch (error) {
@@ -1014,6 +988,20 @@ const filterSubmit = async (req, res) => {
     }
 }
 
+
+
+
+// user logout
+const getUserLogout = async (req, res) => {
+
+    try {
+        req.session.user = null
+        req.session.userLoggedIn = false
+        res.redirect("/")
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 

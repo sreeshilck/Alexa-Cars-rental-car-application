@@ -306,7 +306,7 @@
                                                         <td>{{this.name}}</td>
                                                         <td>{{this.email}}</td>
                                                         <td>{{this.phonenumber}}</td>
-                                                        <td>
+                                                        <td class="text-center">
                                                         {{#if this.isBlocked}}
                                                             <a href="/admin/unblock-user?id={{this._id}}" class="btn btn-success text-white">Unblock</a>
                                                         {{else}}
@@ -315,6 +315,10 @@
                                                            
                                                         {{/if}}
                                                          
+                                                            <a href="" class="btn btn-danger text-white "  data-bs-toggle="modal" data-bs-target="#delModal"><i class="bi bi-trash-fill"></i></a>
+                                                            {{!-- <a href="" class="btn btn-danger text-white " ><i class="bi bi-trash-fill"></i></a> --}}
+
+
                                                         </td>
                                                      
                                                     </tr>
@@ -372,6 +376,36 @@
 
 
 
+    {{!-- modal start --}}
+{{#each users}}
+
+    <div class="modal-box">
+        <!-- Modal -->
+        <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                <div class="modal-content clearfix " id="">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                    <div class="modal-body">
+                        <form action="" method="post" id="id-form">
+
+                            <div class="form-group">
+                                <p>Do you really  want to Delete  ?</p>
+                            </div>
+                            <button class="btn deletebtn" type="button"><a href="/admin/delete-user?id={{this._id}}">
+                                    Delete</a></button>
+
+                            <button class="btn mt-3 cancelbtn" type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">Cancel</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/each}}
+    {{!-- modal end --}}
 
 
 

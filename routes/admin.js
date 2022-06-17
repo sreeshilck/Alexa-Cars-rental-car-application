@@ -1,11 +1,12 @@
-var express = require('express');
-var adminRouter = express();
+const express = require('express');
+const adminRouter = express();
 const bodyParser = require('body-parser')
 const adminController = require('../controller/adminController')
 const Auth = require('../middleware/adminAuth')
 
 adminRouter.use(bodyParser.urlencoded({extended:true}));
 adminRouter.use(bodyParser.json());
+
 
 //GET admin login
 adminRouter.get('/admin-login', adminController.adminLoginLoad);
@@ -18,9 +19,9 @@ adminRouter.get('/admin-panel',Auth.adminAuth, adminController.adminPanelLoad);
 
 //GET view all cars
 adminRouter.get('/view-cars',Auth.adminAuth, adminController.allCarDetailsLoad);
-// Edit cars
+//GET Edit car page
 adminRouter.get('/edit-car',Auth.adminAuth, adminController.editCarDetails);
-// change car
+// update  car details
 adminRouter.post('/updatecar',adminController.upload.single("image"), adminController.editedCar);
 //delete car
 adminRouter.get('/delete-car', adminController.deleteCar);
@@ -28,14 +29,14 @@ adminRouter.get('/delete-car', adminController.deleteCar);
 
 //GET add new car
 adminRouter.get('/addnewcar',Auth.adminAuth, adminController.addNewCarLoad);
-// post new car 
+// submit new car 
 adminRouter.post('/newcar', adminController.upload.single("image"),adminController.addNewCar);
 
 //GET booked car data
 adminRouter.get('/bookedcars',Auth.adminAuth, adminController.getBookedCars);
 //GET deliverd status
 adminRouter.get('/deliveredcars',Auth.adminAuth, adminController.getDeliveryStatus);
-//post update deliverd status
+// update deliverd status
 adminRouter.post('/updatedelivery/:id/', adminController.updateDeliveryStatus);
 
 // GET cancelled car details
@@ -86,27 +87,14 @@ adminRouter.post('/newcoupon',Auth.adminAuth, adminController.saveNewCoupon);
 
 
 
-
-
-
-
-
-
-
 //GET view user-details
 adminRouter.get('/user-details', adminController.userDetailsLoad);
 //Block user
 adminRouter.get('/block-user/', adminController.userBlockLoad);
 //Unblock user
 adminRouter.get('/unblock-user/', adminController.userUnBlockLoad);
-
-
-
-
-
-
-
-
+//delete user
+adminRouter.get('/delete-user/', adminController.userDeleteLoad);
 
 
 

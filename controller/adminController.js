@@ -218,11 +218,7 @@ const editCarDetails = async (req, res) => {
         let carId = req.query.id
         let getCarData = await carModel.findById(carId).lean()
 
-
         res.render('admin/edit-car', { admin: true, getCarData, adminData: req.session.admin });
-
-
-
 
     }
     catch (error) {
@@ -234,11 +230,7 @@ const editCarDetails = async (req, res) => {
 //edited car  details
 const editedCar = async (req, res) => {
     try {
-        console.log(req.file, "---req.file");
-
-        //console.log(req.body);
-
-
+        
         let editCarId = req.query.id
         const plan1 = req.body.planname1
         const plan2 = req.body.planname2
@@ -259,8 +251,6 @@ const editedCar = async (req, res) => {
             console.log("failedd");
             carImg = forUpdateData.image
         }
-
-
 
         const updatedCar = await carModel.updateOne({ _id: editCarId }, {
             $set: {
@@ -303,8 +293,7 @@ const deleteCar = async (req, res) => {
     let deleteId = req.query.id
     try {
 
-        let forDeleteData = await carModel.deleteOne({ _id: deleteId })
-
+       await carModel.deleteOne({ _id: deleteId })
 
         res.redirect("/admin/view-cars")
     } catch (error) {
@@ -347,10 +336,10 @@ const getDeliveryStatus = async (req, res) => {
         console.log(error);
     }
 }
+
 //GET order summary details
 const getOrderSummary = async (req, res) => {
     try {
-
 
         res.render("admin/extrafarepage", { admin: true, adminData: req.session.admin })
     }
@@ -391,7 +380,6 @@ const getViewCouponPage = async (req, res) => {
         allCouponData.forEach(element => {
             element.expirationTime = moment(element.expirationTime).format('llll');
             
-
         });
 
         res.render("admin/view-coupon", { admin: true, adminData: req.session.admin, allCouponData })
@@ -435,6 +423,7 @@ const editedCouponSave = async (req, res) => {
         console.log(error);
     }
 }
+
 //Delete Coupon
 const deleteCoupon = async (req, res) => {
     try {
@@ -477,14 +466,6 @@ const saveNewCoupon = async (req, res) => {
         console.log(error);
     }
 }
-
-
-
-
-
-
-
-
 
 //GET view user details
 const userDetailsLoad = async (req, res) => {
@@ -529,13 +510,30 @@ const userUnBlockLoad = async (req, res) => {
         console.log(error);
     }
 }
+// Delete User
+const userDeleteLoad = async (req, res) => {
+    try {
+
+        let uId = req.query.id
+        await userModel.deleteOne({ _id: uId })
+        res.redirect('/admin/user-details');
+
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+
+
 
 // ========= Update car delivery status
 const updateDeliveryStatus = async (req, res) => {
     try {
         let bookid = req.params.id
         let deliveredDate = new Date()
-
 
         const updatedDelivery = await bookModel.updateMany({ _id: bookid }, { $set: { deliveredDate: deliveredDate, deliveredStatus: "Delivered", isDelivered: true, isReturned: false } })
         res.send("success")
@@ -549,7 +547,6 @@ const updateDeliveryStatus = async (req, res) => {
 const getExtraFarePage = async (req, res) => {
     try {
 
-
         res.render('admin/update-delivery-details');
 
     }
@@ -557,7 +554,7 @@ const getExtraFarePage = async (req, res) => {
         console.log(error);
     }
 }
-// ========= Return details
+// ========= Car Return details
 const returnCarData = async (req, res) => {
     try {
 
@@ -616,7 +613,6 @@ const getReturnedCarSummary = async (req, res) => {
         let bookedCarId = returnedData.carId
         let bookedUserData = await userModel.findById(bookedUserId).lean()
         let bookedCarData = await carModel.findById(bookedCarId).lean()
-
 
 
         if (returnedData.kmplan.kms != "Unlimited") {
@@ -731,6 +727,11 @@ const deleteCancelData = async (req, res) => {
 
 
 
+
+
+
+
+
 const getadminSup = async (req, res) => {
     try {
         if (req.session.admin) {
@@ -785,5 +786,5 @@ module.exports = {
     getadminSup, adminSup, adminLoginVerify, getadminLogout, getViewCouponPage, getCreateNewCouponPage,
     saveNewCoupon, editCouponLoad, editedCouponSave, getDeliveryStatus, updateDeliveryStatus, returnCarData,
     getExtraFarePage, getReturnedCarPage, getReturnedCarSummary, getCancelledBookingPage,
-    getMoreCancelledDetailsPage, deleteCancelData
+    getMoreCancelledDetailsPage, deleteCancelData ,userDeleteLoad
 }

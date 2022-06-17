@@ -140,19 +140,18 @@
 </head>
 
 <body>
-    <div class="container ">
+    <div class="container">
 
-        <form action="/user/search" method="post">
-            {{#if userdateData}}
-           
+        <form action="/user/search" method="post" class="">
+            
 
-            <div class=" row input-container d-flex  mx-auto  mt-5 p-5 ">
-                <div class="col-md-2"></div>
-                <div class="col-md-6 p-3"
+            <div class=" row input-container d-flex  mx-auto  mt-5 pt-3 px-4 ">
+                <div class="col-md-3 col-12"></div>
+                <div class="col-md-6 col-12 pt-4 p-3" 
                     style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 15px;">
-
-                    <div class="startDate truedata col-12  " style="">
-                        <h3>Find Your Car</h3>
+                     <h6 class="fw-bold">Your PickUp and Dropoff Dates</h6>
+                    <div class="startDate truedata col-12  mt-3" style="">
+                      
                         <input type="text" name="startdate" value="{{userdateData.startdate}}" class="basicDate" placeholder="Enter Pickup Date"
                             style="width: 100%; height: 50px;border: 1px solid #FC6414;border-radius: 10px;padding:0 10px;">
 
@@ -163,83 +162,18 @@
 
                     </div>
 
-
                     <div class="searchbtn col-12 text-center mt-3">
                         {{!-- <a href=""> --}}
                             <button class="btn mx-auto" style="background-color: #FC6414; color: white;height: 50px;"
-                                type="submit">Search</button>
-                            {{!-- </a> --}}
+                                type="submit">Submit</button>
+                            
                     </div>
 
 
                 </div>
                
             </div>
-
-
-
-
-            {{else}}
-
-
-
-
-
-
-            <div class=" row input-container d-flex  mx-auto  mt-5 p-5 ">
-                <div class="col-md-2"></div>
-                <div class="col-md-6 p-3"
-                    style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 15px;">
-
-                    <div class="startDate truedata col-12  " style="">
-                        <input type="text" name="startdate" value="" class="basicDate" placeholder="Enter Pickup Date"
-                            style="width: 100%; height: 50px;border: 1px solid #FC6414;border-radius: 10px;padding:0 10px;">
-
-                    </div>
-                    <div class="endDate truedata col-12 mt-3">
-                        <input type="text" name="enddate" value="" class="basicDate" placeholder="Enter Dropoff Date"
-                            style="width: 100%; height: 50px;border: 1px solid #FC6414;border-radius: 10px;padding:0 10px;">
-
-                    </div>
-
-
-                    <div class="searchbtn col-12 text-center mt-3">
-                        {{!-- <a href=""> --}}
-                            <button class="btn mx-auto" style="background-color: #FC6414; color: white;height: 50px;"
-                                type="submit">Search</button>
-                            {{!-- </a> --}}
-                    </div>
-
-
-                </div>
-                {{!-- <div class="col-md-4 mt-md-0 mt-5">
-                    <div class="filter-box bg-white d-flex flex-column px-5 py-3"
-                        style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 15px;height: 220px;">
-
-                        <label for="" class="">Fuel Type:</label>
-                        <div class="filter-types mt-1">
-                            <label for="">Petrol<label>
-                                    <input type="checkbox" id="petrol" name="name-petrol" value="petrolValue"
-                                        class="searchType">
-                                    <label for="">Diesel</label>
-                                    <input type="checkbox" id="diesel" name="diesel" value="diesel" class="searchType">
-                        </div>
-                        <hr>
-                        <label for="" class="mt-3">transmission Type:</label>
-                        <div class="filter-types mt-1">
-                            <label for="">Manual</label>
-                            <input type="checkbox" id="manual" name="Manual" value="manual" class="searchType">
-                            <label for="">Automatic</label>
-                            <input type="checkbox" id="automatic" name="Automatic" value="automatic" class="searchType">
-                        </div>
-
-                        <button class="btn mx-auto" style="background-color: #FC6414; color: white;height: 50px;"
-                            type="submit">Search</button> 
-
-                    </div>
-                </div> --}}
-            </div>
-            {{/if}}
+            
         </form>
 
 
@@ -249,12 +183,12 @@
 
 
 
-        <div class="row  mt-3 pt-3">
-            <h4 class="fw-bold">Our Special Car Rental Plans and Rates</h4>
-            <hr style="color: #FC6414; height: 3px;">
+        <div class="row  mt-3 pt-5  px-4 ">
+            <h4 class="fw-bold">Choose Your Favorite Rental Plans </h4>
+            <hr color="mt-5" style="color: #FC6414; height: 3px; margin-top: 10px !important;">
             {{#each allCarData}}
-            <div class="col-sm-6 col-md-6 col-lg-4 mt-5">
-                <div class="card " style="width: 22rem; border-radius: 15px;">
+            <div class="col-sm-6 col-md-6 col-lg-4 mt-5  ">
+                <div class="card " style="width: auto; border-radius: 15px;">
                     <div class="div card-img-top" style="background-color: #E5E5E5;border-radius: 15px 15px 0 0;">
                         <img src="/images/Cars/{{this.image}}" class="card-img-top" alt="..." style="">
                         <h5 class="card-title ms-4">{{this.modelname}}</h5>
@@ -312,6 +246,13 @@
 
 
     </div>
+
+
+
+
+<div class="footer mt-5" style="width: 100%;height: 100px;background-color: white;"></div>
+
+
 
 
 

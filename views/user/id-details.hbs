@@ -126,21 +126,18 @@
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputFirstName">ID Card</label>
 
-                                         <select name="idcard" id="" class="form-control" aria-readonly="true">
-                                            <option value="" disabled selected>{{userProfileData.idCard}}</option>
-                                            <option value="Aadhar Card">Aadhar Card</option>
-                                            <option value="Passport">Passport</option>
-                                        </select>
+                                    
+                                        <input class="form-control" id="inputLastName" type="text"
+                                            placeholder="" value="{{userProfileData.idCard}}"
+                                            name="dob" readonly>
 
-                                        {{!-- <input class="form-control" id="inputFirstName" type="text"
-                                            placeholder="Enter your first name" value="{{userProfileData.idCard}}"
-                                            name="idcard" required> --}}
+                                        
                                     </div>
 
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputLastName">Date of Birth</label>
-                                        <input class="form-control" id="inputLastName" type="datetime-local"
-                                            placeholder="Enter your Date of Birth" value="{{userProfileData.dateofbirth}}"
+                                        <input class="form-control" id="inputLastName" type="text"
+                                            placeholder="Enter your Date of Birth" value="{{userDob}}"
                                             name="dob" readonly>
                                     </div>
                                 </div>
@@ -166,8 +163,8 @@
                                 {{/if}}
 
                                 <hr class="mt-4" style="color: #FC6414;">
-                                <button class="btn " type="submit" style="background-color: #FC6414; color: white;">Save
-                                    changes</button>
+                                {{!-- <button class="btn " type="submit" style="background-color: #FC6414; color: white;">Save
+                                    changes</button> --}}
                                 {{!-- <a href="" class="btn " type=""
                                     style="background-color: red; color: white;">Cancel</a> --}}
                             </form>
