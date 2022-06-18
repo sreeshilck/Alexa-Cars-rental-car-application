@@ -608,10 +608,12 @@ const getReturnedCarSummary = async (req, res) => {
     try {
 
         let returnedData = await bookModel.findById(req.query.id).lean()
-
+        console.log(returnedData,"===returnedData");
         let bookedUserId = returnedData.userId
+        console.log(bookedUserId,"=----------bookedUserId");
         let bookedCarId = returnedData.carId
         let bookedUserData = await userModel.findById(bookedUserId).lean()
+        console.log(bookedUserData,"======bookedUserData");
         let bookedCarData = await carModel.findById(bookedCarId).lean()
 
 
@@ -641,11 +643,11 @@ const getReturnedCarSummary = async (req, res) => {
 
         let updateExtrakm = await bookModel.findById(req.query.id).lean()
 
-        let userDob = moment(bookedUserData.dateofbirth).format('L');
+        //let userDob = moment(bookedUserData.dateofbirth).format('L');
         let bookedDate = moment(updateExtrakm.date).format('MMMM Do YYYY, h:mm a')
         let deliveredDate = moment(updateExtrakm.deliveredDate).format('MMMM Do YYYY, h:mm a')
         let returnedDate = moment(updateExtrakm.returnedDate).format('MMMM Do YYYY, h:mm a')
-        res.render('admin/final-returncar-summay', { admin: true, adminData: req.session.admin, returnedData, bookedUserData, bookedCarData, updateExtrakm, userDob, bookedDate, deliveredDate, returnedDate });
+        res.render('admin/final-returncar-summay', { admin: true, adminData: req.session.admin, returnedData, bookedUserData, bookedCarData, updateExtrakm, bookedDate, deliveredDate, returnedDate });
 
     }
     catch (error) {

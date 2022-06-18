@@ -96,7 +96,7 @@
                                                         <th>Delivered Date</th>
                                                         <th>Returned Date</th>
                                                         <th>Booked By</th>
-                                                        <th>Status</th>
+                                                        {{!-- <th>Status</th> --}}
                                                         <th>More Details</th>
                                                     </tr>
                                                 </thead>
@@ -107,7 +107,7 @@
                                                         <td>{{this.deliveredDate}}</td>
                                                         <td>{{this.returnedDate}}</td>
                                                         <td>{{this.bookedby}}</td>
-                                                        <td>{{this.returnedStatus}}</td>
+                                                        {{!-- <td>{{this.returnedStatus}}</td> --}}
                                                         <td class="text-center"> <a href="/admin/returnedcar-summary?id={{this._id}}"><i class="bi bi-arrow-right-circle-fill" style="color: #FC6414;font-size: 26px;"></i></a> </td>
                                                     </tr>
                                                     {{/each}}

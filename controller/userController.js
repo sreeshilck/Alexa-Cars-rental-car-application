@@ -489,7 +489,7 @@ const getBookingSummaryPage = async (req, res) => {
         const selectedCarData = await carModel.findById(selectedCarId).lean()
 
 
-        let result = moment(selecteddateData.startdate).format();
+        //let result = moment(selecteddateData.startdate).format();
         let startdate = moment(selecteddateData.startdate).format('llll');
         let enddate = moment(selecteddateData.enddate).format('llll');
 
