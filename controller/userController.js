@@ -495,7 +495,9 @@ const getBookingSummaryPage = async (req, res) => {
 
 
         let dob = moment(bookedUser.dateofbirth).format('L');
-        console.log(bookedUser.idCard,"====bokdsjl");
+        bookedUser ={
+            dob:dob
+        }
         res.render("user/booking-summary", {
             selectedCarData, selectedCarFare, selectedCarKms, userValue, selecteddateData, days, totalfare, startdate, enddate,
             User_id,bookedUser, dob

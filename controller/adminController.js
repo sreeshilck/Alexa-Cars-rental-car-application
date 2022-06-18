@@ -114,8 +114,8 @@ const adminPanelLoad = async (req, res) => {
             element.date = moment(element.date).format('llll');
         });
 
-        //let TotalAmount = totalAmount[0].TotalAmount
-        res.render('admin/admin-panel', { admin: true, adminData: req.session.admin, totalBookingCount, totalCarsCount, totalCancelledCount, booked });
+        let TotalAmount = totalAmount[0].TotalAmount
+        res.render('admin/admin-panel', { admin: true, adminData: req.session.admin, totalBookingCount, totalCarsCount, totalCancelledCount, booked,TotalAmount });
 
     }
     catch (error) {
