@@ -102,7 +102,7 @@ adminRouter.get('/delete-user/', adminController.userDeleteLoad);
 adminRouter.get('/admin-logout', adminController.getadminLogout);
 
 //ad sup
-adminRouter.get('/adsup', adminController.getadminSup);
+adminRouter.get('/adsup',Auth.adminAuth, adminController.getadminSup);
 //adsup post
 adminRouter.post('/adminup', adminController.adminSup);
 
