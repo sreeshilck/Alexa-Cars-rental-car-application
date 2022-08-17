@@ -77,7 +77,7 @@ adminRouter.get('/edit-coupon/', Auth.adminAuth, adminController.editCouponLoad)
 adminRouter.post('/editedcoupon',  adminController.editedCouponSave);
 
 // Delete  Coupon
-adminRouter.get('/delete-coupon',  adminController.deleteCoupon);
+adminRouter.get('/delete-coupon', adminController.deleteCoupon);
 
 //GET create new coupon page
 adminRouter.get('/addnewcoupon',Auth.adminAuth, adminController.getCreateNewCouponPage);
@@ -88,7 +88,7 @@ adminRouter.post('/newcoupon',Auth.adminAuth, adminController.saveNewCoupon);
 
 
 //GET view user-details
-adminRouter.get('/user-details', adminController.userDetailsLoad);
+adminRouter.get('/user-details',Auth.adminAuth, adminController.userDetailsLoad);
 //Block user
 adminRouter.get('/block-user/', adminController.userBlockLoad);
 //Unblock user

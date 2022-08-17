@@ -246,8 +246,8 @@
                             <p style="margin-top: 10px;">{{this.seats}} Seats</p>
                         </div>
                         <div class="fare-box  p-2" style="width: 100%;display: flex; justify-content: space-between;">
-                            <div class="fare1 p-3" style="">
-                                <a href="/user/booking-summary?id={{this._id}}&plan={{this.fareplan.[0].plan1.plan}}">
+                            <div class="fare1 p-3 " style="" data-bs-toggle="modal" data-bs-target="#ModalForm">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#ModalForm" >
                                     <p style="font-weight: bold;margin: auto; colo: #FC6414;"> &#x20b9;
                                         {{this.fareplan.[0].plan1.fare}}</p>
                                     <small
@@ -255,16 +255,16 @@
                                         Kms/day</small>
                                 </a>
                             </div>
-                            <div class="fare2 p-3" style="">
-                                <a href="/user/booking-summary?id={{this._id}}&plan={{this.fareplan.[0].plan2.plan}}">
+                            <div class="fare2 p-3" style="" data-bs-toggle="modal" data-bs-target="#ModalForm">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#ModalForm">
                                     <p style="font-weight: bold;margin: auto;"> &#x20b9;
                                         {{this.fareplan.[0].plan2.fare}}</p>
                                     <small style="font-size: 11px;font-weight: bold">{{this.fareplan.[0].plan2.kms}}
                                         Kms/day</small>
                                 </a>
                             </div>
-                            <div class="fare3 p-3" style="">
-                                <a href="/user/booking-summary?id={{this._id}}&plan={{this.fareplan.[0].plan3.plan}}">
+                            <div class="fare3 p-3" style="" data-bs-toggle="modal" data-bs-target="#ModalForm">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#ModalForm">
                                     <p style="font-weight: bold;margin: auto;"> &#x20b9;
                                         {{this.fareplan.[0].plan3.fare}}</p>
                                     <small style="font-size: 11px;font-weight: bold">{{this.fareplan.[0].plan3.kms}}

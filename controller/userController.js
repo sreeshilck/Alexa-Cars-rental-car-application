@@ -11,7 +11,7 @@ const randomString = require("randomstring")
 const Razorpay = require("razorpay");
 const { response } = require('../routes/user');
 const { resolve } = require('node:path');
-const moment = require('moment'); 
+const moment = require('moment');
 
 
 
@@ -47,7 +47,7 @@ const getSignupPage = async (req, res) => {
         if (req.session.user) {
             res.redirect("/user/user-home")
         } else {
-            res.render('user/user-signup', { layout: false , userExist:req.session.userExist })
+            res.render('user/user-signup', { layout: false, userExist: req.session.userExist })
             req.session.userExist = false
         }
 
@@ -64,15 +64,15 @@ const insertUser = async (req, res) => {
 
     try {
         let useremail = req.body.email
-    
-        let ifExist = await userModel.find({email:useremail})
-        
-        if(ifExist != "") {
+
+        let ifExist = await userModel.find({ email: useremail })
+
+        if (ifExist != "") {
             req.session.userExist = "Email already exists"
             res.redirect("/user/user-signup")
         } else {
 
-        
+
 
 
             const spassword = await securePassword(req.body.password);
@@ -82,26 +82,26 @@ const insertUser = async (req, res) => {
                 password: spassword,
                 phonenumber: req.body.phonenumber
             });
-    
+
             req.session.userDetials = user
-    
+
             const otpGenerator = await Math.floor(1000 + Math.random() * 9000);
-    
+
             req.session.OTP = otpGenerator;
-    
+
             if (user) {
                 sendVerifyMail(req.body.name, req.body.email, otpGenerator)
                 let StartTime = new Date()
                 req.session.otpsentTime = moment(StartTime, 'YYYY-M-DD HH:mm:ss')
-    
-    
+
+
                 res.redirect('/user/user-verify');
-    
+
             } else {
                 res.redirect('/user/user-signup');
-    
+
             }
-    
+
 
         }
 
@@ -259,7 +259,8 @@ const getUserhomePage = async (req, res) => {
 
     try {
         if (req.session.userLoggedIn) {
-            res.render('user/user-home', { userValue, allCarData, userdateData });
+            res.render('user/user-home', { userValue, allCarData, userdateData, dateError: req.session.dateError });
+            req.session.dateError = false;
         } else {
             res.redirect("/")
         }
@@ -442,67 +443,89 @@ const getBookingSummaryPage = async (req, res) => {
         const User_id = req.session.user._id
 
         let selecteddateData = req.session.dateData
-
-        console.log(selecteddateData,"---selecteddateData");
-        let selectedCarId = req.query.id
-        let selectedCarPlan = req.query.plan
-
-        userValue = req.session.user
-        req.session.selecteddateData = selecteddateData
-
-        let bookCarData = await carModel.findById(selectedCarId).lean()
-        let bookedUser = await userModel.findById(User_id).lean()
+        // console.log(selecteddateData.startdate,"qwerty");
+        // console.log(selecteddateData.enddate,"zzzzzz");
+        if (selecteddateData) {
 
 
-        if (selectedCarPlan == bookCarData.fareplan[0].plan1.plan) {
+            if (selecteddateData.startdate && selecteddateData.enddate) {
 
-            req.session.plan = bookCarData.fareplan[0].plan1;
-            var selectedCarFare = bookCarData.fareplan[0].plan1.fare
-            var selectedCarKms = bookCarData.fareplan[0].plan1.kms
 
-        } else if (selectedCarPlan == bookCarData.fareplan[0].plan2.plan) {
+                let selectedCarId = req.query.id
+                let selectedCarPlan = req.query.plan
 
-            req.session.plan = bookCarData.fareplan[0].plan2;
-            var selectedCarFare = bookCarData.fareplan[0].plan2.fare
-            var selectedCarKms = bookCarData.fareplan[0].plan2.kms
+                userValue = req.session.user
+                req.session.selecteddateData = selecteddateData
 
-        } else if (selectedCarPlan == bookCarData.fareplan[0].plan3.plan) {
+                let bookCarData = await carModel.findById(selectedCarId).lean()
+                let bookedUser = await userModel.findById(User_id).lean()
 
-            req.session.plan = bookCarData.fareplan[0].plan3;
-            var selectedCarFare = bookCarData.fareplan[0].plan3.fare
-            var selectedCarKms = bookCarData.fareplan[0].plan3.kms
+
+                if (selectedCarPlan == bookCarData.fareplan[0].plan1.plan) {
+
+                    req.session.plan = bookCarData.fareplan[0].plan1;
+                    var selectedCarFare = bookCarData.fareplan[0].plan1.fare
+                    var selectedCarKms = bookCarData.fareplan[0].plan1.kms
+
+                } else if (selectedCarPlan == bookCarData.fareplan[0].plan2.plan) {
+
+                    req.session.plan = bookCarData.fareplan[0].plan2;
+                    var selectedCarFare = bookCarData.fareplan[0].plan2.fare
+                    var selectedCarKms = bookCarData.fareplan[0].plan2.kms
+
+                } else if (selectedCarPlan == bookCarData.fareplan[0].plan3.plan) {
+
+                    req.session.plan = bookCarData.fareplan[0].plan3;
+                    var selectedCarFare = bookCarData.fareplan[0].plan3.fare
+                    var selectedCarKms = bookCarData.fareplan[0].plan3.kms
+
+                } else {
+                    console.log("invalid plans selected");
+                }
+
+
+                const dateIn = new Date(selecteddateData.startdate);
+                const dateout = new Date(selecteddateData.enddate);
+                const time = Math.abs(dateout - dateIn);
+                const totalhours = Math.ceil(time / (1000 * 60 * 60));
+                const days = Math.ceil(totalhours / 24)
+
+                let totalfare = days * selectedCarFare + bookCarData.deposit
+                req.session.totalfare = totalfare
+
+                const selectedCarData = await carModel.findById(selectedCarId).lean()
+
+
+                //let result = moment(selecteddateData.startdate).format();
+                let startdate = moment(selecteddateData.startdate).format('llll');
+                let enddate = moment(selecteddateData.enddate).format('llll');
+
+
+                let dob = moment(bookedUser.dateofbirth).format('L');
+                bookedUser = {
+                    dob: dob
+                }
+                res.render("user/booking-summary", {
+                    selectedCarData, selectedCarFare, selectedCarKms, userValue, selecteddateData, days, totalfare, startdate, enddate,
+                    User_id, bookedUser, dob
+                })
+
+
+            } else {
+                req.session.dateError = "Please enter the dates.."
+                res.redirect("/user/user-home")
+
+            }
+
 
         } else {
-            console.log("invalid plans selected");
+            req.session.dateError = "Please enter the dates.."
+            res.redirect("/user/user-home")
         }
 
 
-        const dateIn = new Date(selecteddateData.startdate);
-        const dateout = new Date(selecteddateData.enddate);
-        const time = Math.abs(dateout - dateIn);
-        const totalhours = Math.ceil(time / (1000 * 60 * 60));
-        const days = Math.ceil(totalhours / 24)
-
-        let totalfare = days * selectedCarFare + bookCarData.deposit
-        req.session.totalfare = totalfare
-
-        const selectedCarData = await carModel.findById(selectedCarId).lean()
-
-
-        //let result = moment(selecteddateData.startdate).format();
-        let startdate = moment(selecteddateData.startdate).format('llll');
-        let enddate = moment(selecteddateData.enddate).format('llll');
-
-
-        let dob = moment(bookedUser.dateofbirth).format('L');
-        bookedUser ={
-            dob:dob
-        }
-        res.render("user/booking-summary", {
-            selectedCarData, selectedCarFare, selectedCarKms, userValue, selecteddateData, days, totalfare, startdate, enddate,
-            User_id,bookedUser, dob
-        })
     } catch (error) {
+        console.log("error pagee");
         console.log(error);
     }
 }
@@ -544,7 +567,7 @@ const verifyCoupon = async (req, res) => {
 
                     } else {
                         req.session.totalfare = req.session.totalfare - isCouponActive.discount
-                        
+
                         await couponModel.updateOne(
                             { couponCode: coupon },
                             { $push: { usedUsers: user._id } }
@@ -564,7 +587,7 @@ const verifyCoupon = async (req, res) => {
                     discount = isCouponActive.discount
 
                     console.log("Active");
-    
+
                     res.json({ finalFare, discount })
 
                 }
@@ -615,8 +638,9 @@ const userIdSubmit = async (req, res) => {
 const getSearchResults = async (req, res) => {
 
     try {
-        
+
         let searchData = req.body
+        console.table(req.body);
 
         const forserchData = await carModel.find({}).lean()
 
@@ -630,6 +654,7 @@ const getSearchResults = async (req, res) => {
 const getSearchDetails = async (req, res) => {
 
     try {
+    
         req.session.dateData = req.body
 
         res.redirect("/user/user-home")
@@ -735,7 +760,7 @@ const generateRazorPay = (orderId, total) => {
 
 
 const changePaymentStatus = (bookingId, paymentData) => {
-    
+
     let paidAmount = paymentData.order.amount / 100
     return new Promise(async (resolve, reject) => {
         const getbookedcarId = await bookingModel.findById(bookingId)
@@ -795,8 +820,8 @@ const getOrderHistory = async (req, res) => {
 
         userBookedData.forEach(element => {
             element.date = moment(element.date).format('LLLL');
-            });
-    
+        });
+
         res.render("user/billing-order-history", { userValue, userBookedDataCount, userBookedData })
     } catch (error) {
         console.log(error);
@@ -807,14 +832,14 @@ const getBookingngOrderHistory = async (req, res) => {
     try {
 
         let userValue = req.session.user
-   
-        let userBookedData = await bookingModel.find({ $and: [{ userId: userValue._id }, { Status: "Booked" }] }).sort({date:-1}).lean()
+
+        let userBookedData = await bookingModel.find({ $and: [{ userId: userValue._id }, { Status: "Booked" }] }).sort({ date: -1 }).lean()
 
         userBookedData.forEach(element => {
             element.date = moment(element.date).format('LLLL');
             element.pickupDateTime = moment(element.pickupDateTime).format('LLLL');
             element.dropoffDateTime = moment(element.dropoffDateTime).format('LLLL');
-            });
+        });
 
         res.render("user/booking-order-history", { userValue, userBookedData })
     } catch (error) {
@@ -944,7 +969,7 @@ const getUserIddetails = async (req, res) => {
         let userProfileData = await userModel.findById(userValueId).lean()
 
         let userDob = moment(userProfileData.dateofbirth).format('L');
-        res.render("user/id-details", { userValue, userProfileData, profileupdatedmsg: req.session.profileupdated,userDob })
+        res.render("user/id-details", { userValue, userProfileData, profileupdatedmsg: req.session.profileupdated, userDob })
         req.session.profileupdated = false;
     } catch (error) {
         console.log(error);
@@ -982,7 +1007,7 @@ const getAboutPage = async (req, res) => {
 const filterSubmit = async (req, res) => {
     try {
 
-        
+
         let filteredData = await carModel.find({})
         res.send("success")
     } catch (error) {

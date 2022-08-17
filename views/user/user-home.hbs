@@ -165,8 +165,10 @@
                     <div class="searchbtn col-12 text-center mt-3">
                         {{!-- <a href=""> --}}
                             <button class="btn mx-auto" style="background-color: #FC6414; color: white;height: 50px;"
-                                type="submit">Submit</button>
-                            
+                                type="submit">Get My Car</button>
+                            {{#if dateError}}
+                            <p style="color: red; margin-top: 10px;">{{dateError}}</p>
+                            {{/if}}
                     </div>
 
 
