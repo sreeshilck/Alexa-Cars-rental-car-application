@@ -443,8 +443,7 @@ const getBookingSummaryPage = async (req, res) => {
         const User_id = req.session.user._id
 
         let selecteddateData = req.session.dateData
-        // console.log(selecteddateData.startdate,"qwerty");
-        // console.log(selecteddateData.enddate,"zzzzzz");
+        
         if (selecteddateData) {
 
 
@@ -496,7 +495,7 @@ const getBookingSummaryPage = async (req, res) => {
                 const selectedCarData = await carModel.findById(selectedCarId).lean()
 
 
-                //let result = moment(selecteddateData.startdate).format();
+               
                 let startdate = moment(selecteddateData.startdate).format('llll');
                 let enddate = moment(selecteddateData.enddate).format('llll');
 
@@ -683,7 +682,7 @@ const getCheckOutPage = async (req, res) => {
 
 
 
-/================================= User Booking ============================/
+//================================= User Booking ============================
 
 const getBooking = async (req, res) => {
 
@@ -779,7 +778,7 @@ const changePaymentStatus = (bookingId, paymentData) => {
 
 }
 
-/==================================== verifyPayment ======================/
+//==================================== verifyPayment ======================
 const verifyPayment = (details) => {
 
 
