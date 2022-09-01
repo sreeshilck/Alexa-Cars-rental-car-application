@@ -16,9 +16,7 @@ A car rental application using Node.js, Express.js, MongoDB
 [alexacars.ml](https://alexacars.ml/)
 ## Tech Stack
 
-**Client:** Bootstrap, JQuery, Ajax
-
-**Server:** Node, Express
+ Node, Express, Bootstrap, JQuery, Ajax
 
 **Payment Integration:** Razorpay
 
