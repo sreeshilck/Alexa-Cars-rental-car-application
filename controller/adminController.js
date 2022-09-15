@@ -154,11 +154,9 @@ const addNewCarLoad = async (req, res) => {
 
 // add new car
 const addNewCar = async (req, res) => {
-    console.log(req.file);
-    console.log(req.body);
+    
     rentalplans = req.body.plans
-
-
+    
     var plan1 = req.body.planname1
     var plan2 = req.body.planname2
     var plan3 = req.body.planname3
@@ -194,7 +192,6 @@ const addNewCar = async (req, res) => {
                     fare: fare3
                 }
             },
-
             extrafare: req.body.extrafare,
             deposit: req.body.deposit,
             image: req.file.filename,
@@ -202,7 +199,6 @@ const addNewCar = async (req, res) => {
         })
         await cars.save();
         res.redirect("/admin/addnewcar")
-
     }
     catch (error) {
         console.log(error);

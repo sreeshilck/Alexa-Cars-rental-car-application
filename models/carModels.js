@@ -19,8 +19,6 @@ const carSchema=new mongoose.Schema({
     fueltype:{
         type:String,
         required:true
-
-
     },
     seats:{
         type:Number,
